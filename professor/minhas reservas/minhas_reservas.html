@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Reservar Local</title>
+  <title>Minhas reservas</title>
 </head>
 <!-- Inicio do body-->
 
@@ -32,7 +32,7 @@
         <ul class="navbar-nav mr-auto">
           
         <li class="nav-link">
-          <a class="nav-link" href="./Reser_loc_prof.html">Reservar locais</a>
+          <a class="nav-link" href="../Reserva local/Reser_loc_prof.html">Reservar locais</a>
         </li>
 
 
@@ -41,7 +41,7 @@
           </li>
 
           <li class="nav-link">
-            <a class="nav-link" href="../minhas reservas/minhas_reservas.html">Minhas Reservas</a>
+            <a class="nav-link" href="./minhas_reservas.html">Minhas Reservas</a>
           </li>
 
         </ul>
@@ -58,42 +58,54 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-8">
-                    <h2>Reserva de locais</h2>
+                    <h2>Minhas reservas</h2>
                 </div>
             </div>
         </div>
         <table class="table table-stipped">
             <thead>
                 <tr> 
-                    <th>Local</th>
-                    <th>Capacidade</th>
+                    <th>Título </th>
+                    <th>Data da reserva</th>
+                    <th>Hora de Inicio</th>
+                    <th>hora de término</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Sala 9</td>
-                    <td>50</td>
+                    <td>Sala 2</td>
+                    <td>21/01/2020</td>
+                    <td>11:00</td>
+                    <td>12:30</td>
                     
                     <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Reservar</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Cancelar</button>
                     </td>
                 </tr>
+
                 <tr>
-                    <td>Sala 8</td>
-                    <td>40</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Reservar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Auditório</td>
-                    <td>250</td>
+                    <td>caneta azul</td>
+                    <td>25/01/2020</td>
+                    <td>14:00</td>
+                    <td>16:30</td>
                     
                     <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Reservar</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Cancelar</button>
                     </td>
                 </tr>
+
+                <tr>
+                    <td>laboratório</td>
+                    <td>21/01/2020</td>
+                    <td>18:30</td>
+                    <td>21:30</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#reserva" data-whatever="@mdo">Cancelar</button>
+                    </td>
+                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -108,32 +120,19 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Reservar local</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Cancelar reserva</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Data</label>
-            <input type="date" class="form-control" id="data" placeholder="Data da reserva">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Hora Inicial da reserva:</label>
-            <input type="time" class="form-control" id="data" >
-            
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Término da reserva</label>
-            <input type="time" class="form-control" id="data" >
-            
-          </div>
+          <h4>Deseja Realmente cancelar a reserva ?</h4>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-info">Reservar</button>
+        <button type="button" class="btn btn-danger">Sim, cancelar</button>
         <!--Modal Reserva de materiais-->
       </div>
     </div>
