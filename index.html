@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <!--meta tags -->
+  <meta charset="utf-8">
+  <!-- CSS local-->
+  <link rel="stylesheet" type="text/css" href="css/login.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+
+
+  <title>Login</title>
+</head>
+
+<body>
+
+  <div class="container login-container">
+    <div class="row">
+      <div class="col-md-5 login-form-1">
+        <h3>Professor</h3>
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" name="email" placeholder="Email" value="" />
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="senha" placeholder="Senha" value="" />
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btnSubmit" value="Login" />
+          </div>
+
+          <div class="row">
+            <!--Alinhamento em uma linha só os botões de "Esqueceu a senha" e "Cadastre-se"-->
+            <div class="col-sm-8">
+              <a href="#" class="ForgetPwd ">Esqueceu a senha? </a>
+            </div>
+            <div class="col-sm-4">
+              <a href="./pages/novaConta/form.html" class="cadastro">Cadastre-se</a> </div>
+          </div>
+          <!--Alinhamento em uma linha só os botões de "Esqueceu a senha" e "Cadastre-se"-->
+        </form>
+      </div>
+      <!--Form ADM-->
+      <div class="col-md-5 login-form-2 ml-auto">
+        <h3>Administrador</h3>
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Email" value="" />
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Senha" value="" />
+          </div>
+
+          <div class="row">
+            <!--Alinhamento em uma linha só os botões de "login" e "Esqueceu a senha"-->
+            <div class="col-sm-8">
+              <div class="form-group">
+                <input type="submit" class="btnSubmit" value="Login" />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+
+                <a href="#" class="ForgetPwd" value="Login">Esqueceu a senha?</a>
+              </div>
+            </div> <!-- Fim do Alinhamento em uma linha só os botões de "login" e "Esqueceu a senha"-->
+
+            <!--Form ADM-->
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+</html>
