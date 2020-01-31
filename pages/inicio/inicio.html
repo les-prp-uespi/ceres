@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <!-- meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--CSS local-->
+  <link rel="stylesheet" href="../../css/style.css">
+  
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Materiais</title>
+</head>
+<!-- Inicio do body-->
+
+<body>
+  <!-- Inicio do navbar-->
+  <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-gradient-primary">
+
+    <div class="container">
+      <a class="navbar-brand" href="../inicio/inicio.html">Uespi Tools</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSite">
+        <ul class="navbar-nav mr-auto">
+          
+        <li class="nav-link">
+          <a class="nav-link" href="../locais/locais.html">Locais</a>
+        </li>
+
+
+          <li class="nav-link">
+            <a class="nav-link" href="inicio.html">Materiais</a>
+          </li>
+
+          <li class="nav-link">
+            <a class="nav-link" href="../add_adm/adicionar_adm.html">Adicionar adminstrador</a>
+          </li>
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <button class="btn btn-dark" type="submit">Sair</button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- fim do navbar-->
+
+  <div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Cadastro de materiais</h2>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-outline-primary add-new"><i class="fa fa-plus"></i> Adicionar Material</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-stipped">
+            <thead>
+                <tr> 
+                    <th>Nome</th>
+                    <th>quantidade</th>
+                    <th>Data registro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>projetor</td>
+                    <td>3</td>
+                    <td>14/12/2019</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Editar" data-toggle="tooltip"><i
+                                class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="excluir" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>pincel</td>
+                    <td>10</td>
+                    <td>17/01/2020</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Editar" data-toggle="tooltip"><i
+                                class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="excluir" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>apagador</td>
+                    <td>1</td>
+                    <td>21/01/2020</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Editar" data-toggle="tooltip"><i
+                                class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="excluir" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+  
+
+
+  
+
+
+  <!-- Optional JavaScript -->
+  
+  <!-- jQuery primeiro, depois o Popper.js, e  Bootstrap JS -->
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="../../js/addLin.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+  
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  
+</body><!-- fim do body-->
+
+</html>
