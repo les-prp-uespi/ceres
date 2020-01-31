@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CERES - a Central de Reservas da UESPI Campus Piripiri
 
 O sistema de reserva de material didático e de espaços do Campus Piripiri da UESPI, se chama *Cen*tral de *Res*ervas é desenvolvido pelo "Laboratório de Engenharia de Software", sob a liderança do Prof. Alcemir Santos.
@@ -9,6 +10,9 @@ O sistema de reserva de material didático e de espaços do Campus Piripiri da U
 - Narciso Jr.;
 
 ### App 
+
+Um aplicativo para consumir a API Rest do Site desenvolvido com Flutter.
+
 - Allexandre Meneses;
 - Gustavo Rodrigues;
 
