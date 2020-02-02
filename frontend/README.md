@@ -1,17 +1,11 @@
 # CERES - a Central de Reservas da UESPI Campus Piripiri
 
-O sistema de reserva de material didático e de espaços do Campus Piripiri da UESPI, se chama *Cen*tral de *Res*ervas é desenvolvido pelo "Laboratório de Engenharia de Software", sob a liderança do Prof. Alcemir Santos.
+Este diretório contém todos os arquivos do frontend.
 
-## Desenvolvedores
- Segue a lista de desenvolvedores da CERES.
- 
-### Site
+## Desenvolvedores FrontEnd
 - Narciso Jr.;
-
-### App 
-- Allexandre Meneses;
-- Gustavo Rodrigues;
+- André Luis;
 
 ## Tecnologias
 
-Os sistemas são desenvolvidos com Flutter (_Mobile_), Python3, Flask, HTML5 e CSS3 (_Web_).
+Os sistemas são desenvolvidos com Node.js, HTML5 e CSS3.
