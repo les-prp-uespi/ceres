@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask.login import LoginManager, UserMixin, login_required, login_user, logout_user 
 
 app = Flask(__name__)
+login_manager = LoginManager()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -38,7 +40,15 @@ class Reservations(db.Model):
 
 
 
-@app.route('/user', methods = ['POST'])
+@app.route('/', methods = ['POST'])
+def login():
+    if request.method == 'POST':
+        login = request.json['login']
+        password = reques.json['password']
+
+
+@app.route('/', methods = ['POST'])
+
 def create_user():
     if request.method == 'POST':
         
@@ -46,7 +56,6 @@ def create_user():
         login = request.json['login']
         password = request.json['password']
         course = request.json['course']
-        #print(f'name: {name} , login: {login}, password: {password}, course: {course}')
         new_user = User(name, login, password, course)
         try:
             db.session.add(new_user)
@@ -55,7 +64,9 @@ def create_user():
         except:
             return 'Error banco de dados'
     return 500
-    
+@app.route('/')    
+
+
 @app.route('/reservas', methods = ['GET'])
 def get_reservas():
     return 'reservas'
