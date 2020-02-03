@@ -1,4 +1,4 @@
-from banco import db
+from database import db
 
 class UserModel(db.Model):
     
@@ -18,8 +18,8 @@ class UserModel(db.Model):
     def save_user(self):
         db.session.add(self)
         db.session.commit()
-        
-    def json():
+
+    def json(self):
         return {
             "id": self.id,
             "name": self.name,
