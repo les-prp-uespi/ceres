@@ -19,4 +19,22 @@ class UserCreate(Resource):
 
         
 
-        
+class UserModifications(Resource):
+    args = reqparse.RequestParser()
+    args.add_argument("name", required= True)
+    args.add_argument('login', required= True)
+    args.add_argument('password', required= True)
+    args.add_argument('course', required= True)
+    def put(self, id):
+        arg = UserModifications.args.parse_args()
+        try:
+            user = UserModel.find_user(id)
+            if user:
+                user.update(**arg)
+                user.save_user()
+                return user.json(), 200
+            return {"message": "not found user"}, 404
+        except:
+            return {"message": "Error trying to update data"}, 500
+
+    

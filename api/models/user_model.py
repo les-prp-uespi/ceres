@@ -27,4 +27,16 @@ class UserModel(db.Model):
             "password": self.password,
             "course": self.course
         }
-    
+    def update(self, name, login, password, course):
+        self.name = name
+        self.login = login
+        self.password = password
+        self.course = course
+        
+    @classmethod
+    def find_user(cls, id):
+        user = cls.query.filter_by(id = id).first()
+        if user:
+            return user
+        return None
+
