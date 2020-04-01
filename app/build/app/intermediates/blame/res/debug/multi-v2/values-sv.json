@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\arise-uespi\\ceres\\app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sv\\values-sv.xml",
+            "outputFile": "/home/gustavo/Área de Trabalho/app-uespi-reserva/ceres/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sv/values-sv.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\melox\\.gradle\\caches\\transforms-2\\files-2.1\\7faf2ad74a0b9932e38d86e684646e95\\core-1.0.0\\res\\values-sv\\values-sv.xml",
+                    "source": "/home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/res/values-sv/values-sv.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

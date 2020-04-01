@@ -1,4 +1,4 @@
-#Tue Mar 31 21:58:09 GFT 2020
-base.0=D\:\\arise-uespi\\ceres\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Wed Apr 01 16:30:45 BRT 2020
+base.0=/home/gustavo/Área de Trabalho/app-uespi-reserva/ceres/app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

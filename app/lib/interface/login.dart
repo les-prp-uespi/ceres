@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:uespi_reserva/interface/home.dart';
+import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:async';
+
+import 'package:uespi_reserva/modelos/usuario.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -16,10 +18,6 @@ class _LoginState extends State<Login> {
   String url = "https://uespi-reserva.herokuapp.com/";
 
   _login() async {
-
-    String _login = _userlogin.text;
-    String _senha = _senhalogin.text;
-
     http.Response response = await http.post(
       url,
       body:
@@ -28,9 +26,7 @@ class _LoginState extends State<Login> {
           "senha": "${_senhalogin.text}"
         }
     );
-
-    print("${response.statusCode}");
-    print("${response.body}");
+    
     if(_userlogin.text.isEmpty || _senhalogin.text.isEmpty){
       showDialog(context: context,
           builder: (context){
@@ -49,6 +45,8 @@ class _LoginState extends State<Login> {
           });
     }else
     if(response.statusCode == 200){
+       Usuario.token = json.decode(response.body)["token"];
+       Usuario.id = Usuario.token = json.decode(response.body)["id_user"];
       _entrar();
     }else{
       showDialog(context: context,
@@ -62,7 +60,7 @@ class _LoginState extends State<Login> {
             FlatButton(onPressed:(){
               Navigator.pop(context);
             },
-                child: Text("OK"))
+              child: Text("OK"))
           ],
         );
       });
@@ -72,7 +70,7 @@ class _LoginState extends State<Login> {
 
   @override
   void _entrar(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TelaMateriais()));
 
   }
   Widget build(BuildContext context) {
