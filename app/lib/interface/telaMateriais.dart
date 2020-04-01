@@ -23,43 +23,46 @@ class _TelaMateriaisState extends State<TelaMateriais> {
         title: Text('Materiais Disponíveis'),
         centerTitle: true,
       ),
-      body: Container(
-          child: FutureBuilder<List<Recurso>>(
-            future: _listMateriais() ,
-            builder: (context, snapshot){
-              switch(snapshot.connectionState){
-                case ConnectionState.none:
-                 return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                break;
-                case ConnectionState.waiting:
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                break;
-                case ConnectionState.active:
-                 return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                break;
-                case ConnectionState.done:
-                if(snapshot.data.isNotEmpty){
-                  List<Recurso> recusos = snapshot.data;
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder:(context, index){
-                      return viewMateriais(recusos[index]);
-                    } 
-                    
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            child: FutureBuilder<List<Recurso>>(
+              future: _listMateriais() ,
+              builder: (context, snapshot){
+                switch(snapshot.connectionState){
+                  case ConnectionState.none:
+                   return Center(
+                      child: CircularProgressIndicator(),
                     );
-                }else{
-                  return Text("vazio");
+                  break;
+                  case ConnectionState.waiting:
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  break;
+                  case ConnectionState.active:
+                   return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  break;
+                  case ConnectionState.done:
+                  if(snapshot.data.isNotEmpty){
+                    List<Recurso> recusos = snapshot.data;
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder:(context, index){
+                        return viewMateriais(recusos[index]);
+                      }
+
+                      );
+                  }else{
+                    return Text("vazio");
+                  }
+                  break;
                 }
-                break;
-              }
-            },
-          )
+              },
+            )
+        ),
       )
     );
   }

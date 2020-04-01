@@ -12,6 +12,8 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   void logOut(){
+    Navigator.pop(context);
+    Navigator.popAndPushNamed(context, "/login");
 
   }
   void vaiHome(){
@@ -61,7 +63,7 @@ class _MenuState extends State<Menu> {
               leading: Icon(Icons.exit_to_app),
               title: Text("sair",
               style: TextStyle(fontSize: 15.0),),
-              onTap: vaiReservas,
+              onTap: logOut,
             ),
           ],
       ),

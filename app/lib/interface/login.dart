@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../servico.dart';
+import 'telaCadastroUsuario.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 
 
@@ -17,6 +18,11 @@ class _LoginState extends State<Login> {
   var _senhalogin = TextEditingController();
   String url = "https://uespi-reserva.herokuapp.com/";
 
+  void vaiCadastro(){
+    Navigator.pushNamed(context, "/cadastroUsuario");
+
+  }
+
   _login() async {
     http.Response response = await http.post(
       url,
@@ -26,7 +32,7 @@ class _LoginState extends State<Login> {
           "senha": "${_senhalogin.text}"
         }
     );
-    
+
     if(_userlogin.text.isEmpty || _senhalogin.text.isEmpty){
       showDialog(context: context,
           builder: (context){
@@ -138,15 +144,22 @@ class _LoginState extends State<Login> {
                       child: Text("Esqueci minha Senha")),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(50.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Container(
+                    width: 300.0,
                     alignment: Alignment.center,
                    color: Colors.blue,
                     child: FlatButton(onPressed: _login,
                         child: Text("Entrar",
                         style: TextStyle(fontSize: 15.0))),
                   ),
-                )
+                ),
+                Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: FlatButton(onPressed: vaiCadastro,
+                      child: Text("Cadastre-se")),
+                ),
               ],
             ),
             ),

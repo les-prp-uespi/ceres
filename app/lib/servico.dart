@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'modelos/recurso.dart';
 import 'package:http/http.dart' as http;
 const urlMateriais = "https://uespi-reserva.herokuapp.com/api/materiais";
+const urlUsuarios = "https://uespi-reserva.herokuapp.com/api/usuario";
 class Api {
 
    Future<List<Recurso>> getMateriais() async {
@@ -16,8 +17,25 @@ class Api {
         return materiais;
         
       }
-        return null; 
-    
+        return null;
+
+    }
+
+    void cadastrarUsuario(String _nome, String _login, String _senha, String _curso) async{
+     http.Response response = await http.post(
+         urlUsuarios,
+       body:
+       {
+
+         "nome":"$_nome",
+         "login":"$_login",
+         "senha":"$_senha",
+         "curso":"$_curso"
+       }
+     );
+
+     print(response.statusCode);
+     print(response.body);
     }
 
 }

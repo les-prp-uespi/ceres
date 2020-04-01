@@ -19,48 +19,51 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
         appBar: AppBar(
           title: Text("Reservar"),
         ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Recurso"
+        body: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Container(
+            child: ListView(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Recurso"
+                  ),
+                  enabled: false,
+                  initialValue: widget.recurso.nome,
+
                 ),
-                enabled: false,
-                initialValue: widget.recurso.nome,
-              
-              ),
-               TextFormField(
-                decoration: InputDecoration(
-                  labelText: "tipo"
+                 TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "tipo"
+                  ),
+                  enabled: false,
+                  initialValue: widget.recurso.tipo,
+
                 ),
-                enabled: false,
-                initialValue: widget.recurso.tipo,
-              
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Data"
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Data"
+                  ),
+                  initialValue: widget.recurso.tipo,
+
                 ),
-                initialValue: widget.recurso.tipo,
-              
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Horário de início"
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Horário de início"
+                  ),
+                  initialValue: widget.recurso.tipo,
+
                 ),
-                initialValue: widget.recurso.tipo,
-              
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Horário de final"
-                ),
-                initialValue: widget.recurso.tipo,
-              
-              )
-              
-            ], 
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Horário de final"
+                  ),
+                  initialValue: widget.recurso.tipo,
+
+                )
+
+              ],
+            ),
           ),
         ),
     );
