@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/interface/home.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class Login extends StatefulWidget {
   @override
@@ -7,6 +10,66 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  var _userlogin = TextEditingController();
+  var _senhalogin = TextEditingController();
+  String url = "https://uespi-reserva.herokuapp.com/";
+
+  _login() async {
+
+    String _login = _userlogin.text;
+    String _senha = _senhalogin.text;
+
+    http.Response response = await http.post(
+      url,
+      body:
+        {
+          "login":"${_userlogin.text}",
+          "senha": "${_senhalogin.text}"
+        }
+    );
+
+    print("${response.statusCode}");
+    print("${response.body}");
+    if(_userlogin.text.isEmpty || _senhalogin.text.isEmpty){
+      showDialog(context: context,
+          builder: (context){
+            return AlertDialog(
+              title: Text("Usuário ou senha inválido(a) !",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+              content: Text("Todos os campos devem ser preenchidos",
+                style: TextStyle(fontSize: 18),),
+              actions: <Widget>[
+                FlatButton(onPressed:(){
+                  Navigator.pop(context);
+                },
+                    child: Text("OK"))
+              ],
+            );
+          });
+    }else
+    if(response.statusCode == 200){
+      _entrar();
+    }else{
+      showDialog(context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text("Não é possivel fazer login !",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+          content: Text("Verifique email e senha e tente novamente !",
+          style: TextStyle(fontSize: 18),),
+          actions: <Widget>[
+            FlatButton(onPressed:(){
+              Navigator.pop(context);
+            },
+                child: Text("OK"))
+          ],
+        );
+      });
+    }
+
+  }
+
   @override
   void _entrar(){
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -37,6 +100,7 @@ class _LoginState extends State<Login> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _userlogin,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         icon: Icon(Icons.person),
@@ -55,6 +119,7 @@ class _LoginState extends State<Login> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _senhalogin,
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       decoration: InputDecoration(
@@ -79,7 +144,7 @@ class _LoginState extends State<Login> {
                   child: Container(
                     alignment: Alignment.center,
                    color: Colors.blue,
-                    child: FlatButton(onPressed: _entrar,
+                    child: FlatButton(onPressed: _login,
                         child: Text("Entrar",
                         style: TextStyle(fontSize: 15.0))),
                   ),
