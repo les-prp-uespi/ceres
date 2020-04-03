@@ -1,6 +1,6 @@
 class Usuario{
   static String token;
-  static String id;
+  static int id;
 
   String nome;
   String login;

@@ -52,6 +52,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       if(_senhaController.text == _confirmaController.text){
         _senha = _senhaController.text;
         _api.cadastrarUsuario(_nome, _email, _senha, _curso);
+        Navigator.pop(context);
       }else{
         showDialog(context: context,
             builder: (context){

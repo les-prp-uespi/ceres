@@ -7,6 +7,7 @@ import 'telaCadastroUsuario.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 
 
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -52,7 +53,8 @@ class _LoginState extends State<Login> {
     }else
     if(response.statusCode == 200){
        Usuario.token = json.decode(response.body)["token"];
-       Usuario.id = Usuario.token = json.decode(response.body)["id_user"];
+       Usuario.id = json.decode(response.body)["user_id"];
+       print(Usuario.token);
       _entrar();
     }else{
       showDialog(context: context,
