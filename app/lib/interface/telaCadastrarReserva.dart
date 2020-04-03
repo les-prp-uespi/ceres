@@ -34,13 +34,13 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                         ),
                         labelText: "Recurso:",
                           labelStyle: TextStyle(
-                            fontSize: 25,
+                            fontSize: 15,
                             fontWeight: FontWeight.w400
                           )
                       ),
                       enabled: false,
                       initialValue: widget.recurso.nome,
-                      style: TextStyle(fontSize: 25,
+                      style: TextStyle(fontSize: 15,
                           fontWeight: FontWeight.w400),
 
                     ),
@@ -56,13 +56,13 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                           ),
                           labelText: "Tipo:",
                           labelStyle: TextStyle(
-                              fontSize: 25,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400
                           )
                       ),
                       enabled: false,
                       initialValue: widget.recurso.tipo,
-                      style: TextStyle(fontSize: 25,
+                      style: TextStyle(fontSize: 15,
                           fontWeight: FontWeight.w400),
 
                     ),
@@ -78,12 +78,12 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                           ),
                           labelText: "Data:",
                           labelStyle: TextStyle(
-                              fontSize: 25,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400
                           )
                       ),
                       enabled: true,
-                      style: TextStyle(fontSize: 25,
+                      style: TextStyle(fontSize: 15,
                           fontWeight: FontWeight.w400),
 
                     ),
@@ -99,12 +99,12 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                           ),
                           labelText: "Horário de início:",
                           labelStyle: TextStyle(
-                              fontSize: 25,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400
                           )
                       ),
                       enabled: true,
-                      style: TextStyle(fontSize: 25,
+                      style: TextStyle(fontSize: 15,
                           fontWeight: FontWeight.w400),
 
                     ),
@@ -120,14 +120,28 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                           ),
                           labelText: "Horário de final:",
                           labelStyle: TextStyle(
-                              fontSize: 25,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400
                           )
                       ),
                       enabled: true,
-                      style: TextStyle(fontSize: 25,
+                      style: TextStyle(fontSize: 15,
                           fontWeight: FontWeight.w400),
                     ),
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: 300.0,
+                    alignment: Alignment.center,
+                    color: Colors.blue,
+                    child: FlatButton(onPressed: (){},
+                        child: Text("Reservar",
+                            style: TextStyle(fontSize: 15.0))),
                   ),
                 ),
               ],
