@@ -15,7 +15,14 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
   var _confirmaController = TextEditingController();
   var _cursoController = TextEditingController();
   String _nome, _email, _senha, _curso;
-
+  void _cancelar(){
+    _nomeController.clear();
+    _emailController.clear();
+    _senhaController.clear();
+    _confirmaController.clear();
+    _cursoController.clear();
+    Navigator.pop(context);
+  }
   void _verifica(){
     if(_nomeController.text.isEmpty ||
         _emailController.text.isEmpty||
@@ -173,7 +180,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Container(
               height: 40,
               alignment: Alignment.center,
-              child: FlatButton(onPressed: ()=>{},
+              child: FlatButton(onPressed: _cancelar,
                   child: Text("Cancelar")),
             ),
           ],

@@ -24,44 +24,112 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
           child: Container(
             child: ListView(
               children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Recurso"
-                  ),
-                  enabled: false,
-                  initialValue: widget.recurso.nome,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                        labelText: "Recurso:",
+                          labelStyle: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w400
+                          )
+                      ),
+                      enabled: false,
+                      initialValue: widget.recurso.nome,
+                      style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400),
 
+                    ),
+                  ),
                 ),
-                 TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "tipo"
-                  ),
-                  enabled: false,
-                  initialValue: widget.recurso.tipo,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          labelText: "Tipo:",
+                          labelStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400
+                          )
+                      ),
+                      enabled: false,
+                      initialValue: widget.recurso.tipo,
+                      style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400),
 
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Data"
-                  ),
-                  initialValue: widget.recurso.tipo,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          labelText: "Data:",
+                          labelStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400
+                          )
+                      ),
+                      enabled: true,
+                      style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400),
 
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Horário de início"
-                  ),
-                  initialValue: widget.recurso.tipo,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          labelText: "Horário de início:",
+                          labelStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400
+                          )
+                      ),
+                      enabled: true,
+                      style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400),
 
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Horário de final"
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          labelText: "Horário de final:",
+                          labelStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400
+                          )
+                      ),
+                      enabled: true,
+                      style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
-                  initialValue: widget.recurso.tipo,
-
-                )
-
+                ),
               ],
             ),
           ),
