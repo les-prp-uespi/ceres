@@ -15,8 +15,13 @@ class _TelaMateriaisState extends State<TelaMateriais> {
   _listMateriais (){
     return _api.getMateriais();
   }
+  _getUser (){
+    return _api.getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _getUser();
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(

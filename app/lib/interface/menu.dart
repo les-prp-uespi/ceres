@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:uespi_reserva/interface/login.dart';
 import 'package:uespi_reserva/interface/telaReservas.dart';
+import 'package:uespi_reserva/modelos/usuario.dart';
+import 'package:uespi_reserva/servico.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+
   void logOut(){
     Navigator.pop(context);
     Navigator.popAndPushNamed(context, "/login");
@@ -35,9 +39,9 @@ class _MenuState extends State<Menu> {
             Column(
             children:[
         UserAccountsDrawerHeader(
-            accountName: Text("Example",
+            accountName: Text("${user.nome}",
               style: TextStyle(fontSize: 20.0),),
-            accountEmail: Text("example@example.com",
+            accountEmail: Text("${user.login}",
               style: TextStyle(fontSize: 15.0)),
           currentAccountPicture: CircleAvatar(
             child: Icon(Icons.account_box,),

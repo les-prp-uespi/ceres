@@ -54,7 +54,6 @@ class _LoginState extends State<Login> {
     if(response.statusCode == 200){
        Usuario.token = json.decode(response.body)["token"];
        Usuario.id = json.decode(response.body)["user_id"];
-       print(Usuario.token);
       _entrar();
     }else{
       showDialog(context: context,
