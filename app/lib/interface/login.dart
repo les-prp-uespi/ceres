@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../servico.dart';
-import 'telaCadastroUsuario.dart';
+import 'package:uespi_reserva/servico.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 
 
@@ -33,7 +32,6 @@ class _LoginState extends State<Login> {
           "senha": "${_senhalogin.text}"
         }
     );
-
     if(_userlogin.text.isEmpty || _senhalogin.text.isEmpty){
       showDialog(context: context,
           builder: (context){

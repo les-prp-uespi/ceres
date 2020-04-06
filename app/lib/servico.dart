@@ -47,7 +47,7 @@ class Api {
 
    Future getUser() async {
      var request = await http.get(
-       urlUsuarios + "/${Usuario.id}" ,
+       urlUsuarios + "/${Usuario.id}",
      headers: {
          HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
      });
@@ -61,5 +61,38 @@ class Api {
        );
      }
 
+   }
+
+
+   void atualizarUsuario(String _nome, String _login, String _senha, String _curso) async{
+     http.Response response = await http.put(
+         urlUsuarios + "/${Usuario.id}",
+         headers: {
+           HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+         },
+         body:
+         {
+
+           "nome":"$_nome",
+           "login":"$_login",
+           "senha":"$_senha",
+           "curso":"$_curso"
+         }
+     );
+
+     print(response.statusCode);
+     print(response.body);
+   }
+
+   void excluirUsuario() async {
+     http.Response response = await http.delete(
+       urlUsuarios + "/${Usuario.id}",
+       headers: {
+         HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+       },
+     );
+
+     print("${response.statusCode}");
+     print("${response.body}");
    }
 }

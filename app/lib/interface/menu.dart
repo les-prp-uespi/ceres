@@ -43,9 +43,14 @@ class _MenuState extends State<Menu> {
               style: TextStyle(fontSize: 20.0),),
             accountEmail: Text("${user.login}",
               style: TextStyle(fontSize: 15.0)),
-          currentAccountPicture: CircleAvatar(
-            child: Icon(Icons.account_box,),
-            radius: 30.0,
+          currentAccountPicture: GestureDetector(
+            child: CircleAvatar(
+              child: Icon(Icons.account_box,),
+              radius: 30.0,
+            ),
+            onTap: (){
+              Navigator.pushNamed(context, "/editUsuario");
+            },
           ),
         ),
             ListTile(
@@ -61,8 +66,14 @@ class _MenuState extends State<Menu> {
               style: TextStyle(fontSize: 15.0),),
               onTap: vaiReservas,
             ),
-            ]
-            ),
+              ListTile(
+                leading: Icon(Icons.build),
+                title: Text("Configurações",
+                  style: TextStyle(fontSize: 15.0),),
+                onTap: (){},
+              ),
+
+            ]),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text("sair",
