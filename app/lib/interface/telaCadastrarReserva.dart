@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:uespi_reserva/modelos/recurso.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'package:uespi_reserva/servico.dart';
-import 'package:date_format/date_format.dart';
 
 class TelaCadastraReserva extends StatefulWidget{
   Recurso recurso;
@@ -41,6 +40,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
           });
     }else{
       _api.reservar(_data, _hi, _hf, widget.recurso.id, Usuario.id);
+      Navigator.pop(context);
     }
   }
 

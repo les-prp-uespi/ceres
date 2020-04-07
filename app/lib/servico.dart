@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:uespi_reserva/modelos/reservas.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'modelos/recurso.dart';
 import 'package:http/http.dart' as http;
@@ -105,7 +106,7 @@ class Api {
 
 
    //Requisições de Reservas
-   
+
    void reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
@@ -129,4 +130,33 @@ class Api {
      print(response.body);
 
    }
+
+   Future<List<Reserva>> getReservas() async {
+     var request = await http.get(urlReservas + "/${Usuario.id}",
+       headers: {
+         HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+       },);
+     if(request.statusCode == 200){
+       var jsonReservas = json.decode(request.body);
+       List<Reserva> reservas = List();
+       for (var j in jsonReservas){
+         reservas.add(Reserva(
+             idReserva: j["id_reserva"],
+             data: j["data"],
+             horarioInicio: j["horario inicio"],
+             horarioFinal: j["horario final"],
+             nomeMaterial: j["nome_material"],
+             tipoMAterial: j["tipo"]
+
+         ));
+       }
+       print(reservas.length);
+       return reservas;
+
+     }
+     return null;
+
+   }
+
+
 }

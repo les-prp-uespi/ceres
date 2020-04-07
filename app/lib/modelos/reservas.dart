@@ -1,10 +1,14 @@
 class Reserva{
-  String idReserva;
-  String idUsuario;
-  String idRecurso;
+  int idReserva;
+  int idUsuario;
+  int idRecurso;
   String horarioInicio;
   String horarioFinal;
   String data;
-  Reserva({this.idReserva, this.idUsuario, this.idRecurso, this.horarioInicio, this.horarioFinal, this.data});
+  String nomeMaterial;
+  String tipoMAterial;
+
+  Reserva({this.idReserva, this.idUsuario, this.idRecurso,
+    this.horarioInicio, this.horarioFinal, this.data, this.nomeMaterial, this.tipoMAterial});
 
 }

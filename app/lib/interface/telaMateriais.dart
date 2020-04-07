@@ -5,6 +5,7 @@ import 'package:uespi_reserva/interface/telaCadastrarReserva.dart';
 import 'package:uespi_reserva/modelos/recurso.dart';
 import 'package:uespi_reserva/servico.dart';
 
+
 class TelaMateriais extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _TelaMateriaisState();
@@ -18,10 +19,14 @@ class _TelaMateriaisState extends State<TelaMateriais> {
   _getUser (){
     return _api.getUser();
   }
+  _getRes (){
+    return _api.getReservas();
+  }
 
   @override
   Widget build(BuildContext context) {
     _getUser();
+    _getRes();
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(
