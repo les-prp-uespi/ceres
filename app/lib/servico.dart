@@ -146,7 +146,9 @@ class Api {
              horarioInicio: j["horario inicio"],
              horarioFinal: j["horario final"],
              nomeMaterial: j["nome_material"],
-             tipoMAterial: j["tipo"]
+             tipoMAterial: j["tipo"],
+             idMaterial: j["id_material"]
+
 
          ));
        }
@@ -158,5 +160,40 @@ class Api {
 
    }
 
+   void editarReserva(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU, int _idReserv) async {
+     print("edit");
+     http.Response response = await http.put(
+         urlReservas + "/$_idReserv",
+         headers: {
+           HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+         },
+         body:
+         {
+
+           "data":"${formatDate(_data, [dd,':',mm,':',yyyy])}",
+           "horario_inicio":"${_hi.hour}:${_hi.minute}",
+           "horario_final":"${_hf.hour}:${_hf.minute}",
+           "id_material": "$_idM",
+           "id_usuario": "$_idU"
+
+         }
+     );
+
+     print(response.statusCode);
+     print(response.body);
+
+   }
+
+   void excluirReserva(_idReserva) async {
+     http.Response response = await http.delete(
+       urlReservas + "/${_idReserva}",
+       headers: {
+         HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+       },
+     );
+
+     print("${response.statusCode}");
+     print("${response.body}");
+   }
 
 }

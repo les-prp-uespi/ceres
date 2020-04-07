@@ -67,7 +67,7 @@ class _TelaReservasState extends State<TelaReservas>{
               },
             )
         ),
-      )
+      ),
     );
   }
 
@@ -80,7 +80,42 @@ class _TelaReservasState extends State<TelaReservas>{
           subtitle: Text(reserva.tipoMAterial),
         ),
         onTap: (){
-        }
+          showDialog(context: context,
+              builder: (context){
+                return AlertDialog(
+                  title: Text("Informações de Reserva",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+                  content: Container(
+                    height: 120,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                      Text("Material: ${reserva.nomeMaterial}",
+                        style: TextStyle(fontSize: 18),),
+                      Text("Data: ${reserva.data}",
+                        style: TextStyle(fontSize: 18),),
+                      Text("Horário Inicial: ${reserva.horarioInicio}",
+                        style: TextStyle(fontSize: 18),),
+                      Text("Horário Final: ${reserva.horarioFinal}",
+                        style: TextStyle(fontSize: 18),),
+                    ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(onPressed:(){
+                      Navigator.pop(context);
+                      Navigator.push(context,  MaterialPageRoute(builder: (context)=>EditResrva(reserva: reserva,)));
+                    },
+                        child: Text("Editar Reserva")),
+                    FlatButton(onPressed:(){
+                      Navigator.pop(context);
+                    },
+                        child: Text("OK")),
+
+                  ],
+                );
+              });
+        },
     );
 
   }
