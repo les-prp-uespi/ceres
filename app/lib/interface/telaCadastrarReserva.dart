@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/modelos/recurso.dart';
+import 'package:uespi_reserva/modelos/usuario.dart';
+import 'package:uespi_reserva/servico.dart';
+import 'package:date_format/date_format.dart';
 
 class TelaCadastraReserva extends StatefulWidget{
   Recurso recurso;
@@ -8,11 +11,39 @@ class TelaCadastraReserva extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _TelaCadastraReservaState();
 
-
-
 }
 
 class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
+  Api _api = Api();
+  DateTime _data;
+  TimeOfDay _hi, _hf;
+
+  void _reservar() {
+    if (_data == null || _hi == null || _hf == null){
+      print(_data.toString());
+      print(_hi.toString());
+      print(_hf.toString());
+
+      showDialog(context: context,
+          builder: (context){
+            return AlertDialog(
+              title: Text("Campo Vazio !",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+              content: Text("Todos os campos devem ser preenchidos",
+                style: TextStyle(fontSize: 18),),
+              actions: <Widget>[
+                FlatButton(onPressed:(){
+                  Navigator.pop(context);
+                },
+                    child: Text("OK"))
+              ],
+            );
+          });
+    }else{
+      _api.reservar(_data, _hi, _hf, widget.recurso.id, Usuario.id);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,62 +102,58 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          labelText: "Data:",
-                          labelStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400
-                          )
-                      ),
-                      enabled: true,
-                      style: TextStyle(fontSize: 15,
-                          fontWeight: FontWeight.w400),
-
+                    child: RaisedButton(
+                      color: Colors.yellow,
+                      onPressed: () async {
+                        final dtPick = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime(2100)
+                        );
+                        if (dtPick != null && dtPick != _data){
+                          _data = dtPick;
+                        }
+                      },
+                      child: Text("Selecionar Data") ,
                     ),
                   ),
                 ),
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          labelText: "Horário de início:",
-                          labelStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400
-                          )
-                      ),
-                      enabled: true,
-                      style: TextStyle(fontSize: 15,
-                          fontWeight: FontWeight.w400),
+                    child: RaisedButton(
+                      color: Colors.yellow,
+                      onPressed: () async {
+                        final hipicker = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now()
+                        );
 
+                        if(hipicker != null ){
+                          _hi = hipicker;
+                        }
+                      },
+                      child: Text("Selecionar Hora inicial") ,
                     ),
                   ),
                 ),
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          labelText: "Horário de final:",
-                          labelStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400
-                          )
-                      ),
-                      enabled: true,
-                      style: TextStyle(fontSize: 15,
-                          fontWeight: FontWeight.w400),
+                    child: RaisedButton(
+                      color: Colors.yellow,
+                      onPressed: () async {
+                        final hfpicker = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now()
+                        );
+
+                        if(hfpicker != null ){
+                          _hf = hfpicker;
+                        }
+                      },
+                      child: Text("Selecionar Hora Final") ,
                     ),
                   ),
                 ),
@@ -139,7 +166,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                     width: 300.0,
                     alignment: Alignment.center,
                     color: Colors.blue,
-                    child: FlatButton(onPressed: (){},
+                    child: FlatButton(onPressed: _reservar,
                         child: Text("Reservar",
                             style: TextStyle(fontSize: 15.0))),
                   ),
@@ -151,4 +178,4 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
     );
   }
 
-} 
+}

@@ -65,6 +65,7 @@ class _TelaMateriaisState extends State<TelaMateriais> {
                   }
                   break;
                 }
+                return null;
               },
             )
         ),

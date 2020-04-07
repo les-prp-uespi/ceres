@@ -1,15 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'modelos/recurso.dart';
 import 'package:http/http.dart' as http;
+import 'package:date_format/date_format.dart';
 
 const urlMateriais = "https://uespi-reserva.herokuapp.com/api/materiais";
 const urlUsuarios = "https://uespi-reserva.herokuapp.com/api/usuario";
+const urlReservas = "https://uespi-reserva.herokuapp.com/api/reservar";
 
 Usuario user;
 
 class Api {
+
+  //Requisições de Materiais
 
    Future<List<Recurso>> getMateriais() async {
       var request = await http.get(urlMateriais);
@@ -17,7 +22,7 @@ class Api {
         var jsonMateriais = json.decode(request.body);
         List<Recurso> materiais = List();
         for (var j in jsonMateriais){
-          materiais.add(Recurso(id: j["id"].toString(), nome: j["nome"], tipo: j["tipo"]));
+          materiais.add(Recurso(id: j["id"], nome: j["nome"], tipo: j["tipo"]));
         }
         print(materiais.length);
         return materiais;
@@ -26,6 +31,8 @@ class Api {
         return null;
 
     }
+
+    //Requisições de Usuário
 
     void cadastrarUsuario(String _nome, String _login, String _senha, String _curso) async{
      http.Response response = await http.post(
@@ -94,5 +101,32 @@ class Api {
 
      print("${response.statusCode}");
      print("${response.body}");
+   }
+
+
+   //Requisições de Reservas
+   
+   void reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
+
+     http.Response response = await http.post(
+         urlReservas,
+         headers: {
+           HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+         },
+         body:
+         {
+
+           "data":"${formatDate(_data, [dd,':',mm,':',yyyy])}",
+           "horario_inicio":"${_hi.hour}:${_hi.minute}",
+           "horario_final":"${_hf.hour}:${_hf.minute}",
+           "id_material": "$_idM",
+           "id_usuario": "$_idU"
+
+         }
+     );
+
+     print(response.statusCode);
+     print(response.body);
+
    }
 }
