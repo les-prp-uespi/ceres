@@ -107,7 +107,7 @@ class Api {
 
    //Requisições de Reservas
 
-   void reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
+   Future reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
          urlReservas,
@@ -128,6 +128,7 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
+
 
    }
 
