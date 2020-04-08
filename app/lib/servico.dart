@@ -7,13 +7,16 @@ import 'modelos/recurso.dart';
 import 'package:http/http.dart' as http;
 import 'package:date_format/date_format.dart';
 
+
 const urlMateriais = "https://uespi-reserva.herokuapp.com/api/materiais";
 const urlUsuarios = "https://uespi-reserva.herokuapp.com/api/usuario";
 const urlReservas = "https://uespi-reserva.herokuapp.com/api/reservar";
 
 Usuario user;
 
+
 class Api {
+
 
   //Requisições de Materiais
 
@@ -102,14 +105,16 @@ class Api {
 
      print("${response.statusCode}");
      print("${response.body}");
+
    }
 
 
    //Requisições de Reservas
 
-   Future reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
+   Future<int> reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
+
          urlReservas,
          headers: {
            HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
@@ -128,6 +133,7 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
+
 
 
    }

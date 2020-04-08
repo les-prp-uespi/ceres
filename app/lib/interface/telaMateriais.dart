@@ -19,17 +19,16 @@ class _TelaMateriaisState extends State<TelaMateriais> {
   _getUser (){
     return _api.getUser();
   }
-  _getRes (){
-    return _api.getReservas();
-  }
 
   @override
   Widget build(BuildContext context) {
     _getUser();
-    _getRes();
     return Scaffold(
+      backgroundColor: Colors.blue,
       drawer: Menu(),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text('Materiais Disponíveis'),
         centerTitle: true,
       ),
@@ -42,29 +41,37 @@ class _TelaMateriaisState extends State<TelaMateriais> {
                 switch(snapshot.connectionState){
                   case ConnectionState.none:
                    return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                   break;
                   case ConnectionState.waiting:
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                   break;
                   case ConnectionState.active:
                    return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                   break;
                   case ConnectionState.done:
                   if(snapshot.data.isNotEmpty){
                     List<Recurso> recusos = snapshot.data;
-                    return ListView.builder(
+                    return GridView.builder(
                       itemCount: snapshot.data.length,
-                      itemBuilder:(context, index){
-                        return viewMateriais(recusos[index]);
-                      }
-
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                      itemBuilder: (BuildContext context, int index){
+                        return viewMAteriais(recusos[index]);
+                      },
+                    
                       );
+
                   }else{
                     return Text("vazio");
                   }
@@ -78,18 +85,47 @@ class _TelaMateriaisState extends State<TelaMateriais> {
     );
   }
 
-  Widget viewMateriais(Recurso recurso){
+  Widget viewMAteriais(Recurso recurso){
     var icone = recurso.tipo == "movel"? Icons.personal_video: Icons.room;
-    return GestureDetector(
-       child: ListTile(
-        leading: Icon(icone),
-        title: Text(recurso.nome),
-        subtitle: Text(recurso.tipo),
+    return Container(
+      child: GestureDetector(
+        child: Container(
+          child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Icon(icone,
+                      size: 25,),
+                      Text(recurso.nome,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 25,
+                      fontWeight: FontWeight.w400, ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(recurso.tipo,
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontSize: 15
+                        ),)),
+                    ],
+                  ),
+                ),
+              )),
+        ),
+        onTap: (){
+          Navigator.push(context,  MaterialPageRoute(builder: (context)=>TelaCadastraReserva(recurso: recurso,)));
+        },
       ),
-      onTap: (){
-          Navigator.push(context,  MaterialPageRoute(builder: (context)=>TelaCadastraReserva(recurso: recurso)));
-        }
-      );
+
+    );
 
   }
 }

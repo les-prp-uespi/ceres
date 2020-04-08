@@ -21,8 +21,11 @@ class _TelaReservasState extends State<TelaReservas>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       drawer: Menu(),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text("Reservas"),
         centerTitle: true,
       ),
@@ -51,11 +54,12 @@ class _TelaReservasState extends State<TelaReservas>{
                   case ConnectionState.done:
                     if(snapshot.data.isNotEmpty){
                       List<Reserva> reservas = snapshot.data;
-                      return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder:(context, index){
-                            return viewReservas(reservas[index]);
-                          }
+                      return GridView.builder(
+                        itemCount: snapshot.data.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                        itemBuilder: (BuildContext context, int index){
+                          return viewReservas(reservas[index]);
+                        },
 
                       );
                     }else{
@@ -71,13 +75,41 @@ class _TelaReservasState extends State<TelaReservas>{
     );
   }
 
+
   Widget viewReservas(Reserva reserva){
     var icone = reserva.tipoMAterial == "movel"? Icons.personal_video: Icons.room;
-    return GestureDetector(
-        child: ListTile(
-          leading: Icon(icone),
-          title: Text(reserva.nomeMaterial),
-          subtitle: Text(reserva.tipoMAterial),
+    return Container(
+      child: GestureDetector(
+        child: Container(
+          child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Icon(icone,
+                        size: 25,),
+                      Text(reserva.nomeMaterial,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25,
+                          fontWeight: FontWeight.w400, ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(reserva.tipoMAterial,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontSize: 15
+                            ),)),
+                    ],
+                  ),
+                ),
+              )),
         ),
         onTap: (){
           showDialog(context: context,
@@ -90,15 +122,15 @@ class _TelaReservasState extends State<TelaReservas>{
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                      Text("Material: ${reserva.nomeMaterial}",
-                        style: TextStyle(fontSize: 18),),
-                      Text("Data: ${reserva.data}",
-                        style: TextStyle(fontSize: 18),),
-                      Text("Horário Inicial: ${reserva.horarioInicio}",
-                        style: TextStyle(fontSize: 18),),
-                      Text("Horário Final: ${reserva.horarioFinal}",
-                        style: TextStyle(fontSize: 18),),
-                    ],
+                        Text("Material: ${reserva.nomeMaterial}",
+                          style: TextStyle(fontSize: 18),),
+                        Text("Data: ${reserva.data}",
+                          style: TextStyle(fontSize: 18),),
+                        Text("Horário Inicial: ${reserva.horarioInicio}",
+                          style: TextStyle(fontSize: 18),),
+                        Text("Horário Final: ${reserva.horarioFinal}",
+                          style: TextStyle(fontSize: 18),),
+                      ],
                     ),
                   ),
                   actions: <Widget>[
@@ -116,8 +148,8 @@ class _TelaReservasState extends State<TelaReservas>{
                 );
               });
         },
+      ),
+
     );
-
   }
-
 }
