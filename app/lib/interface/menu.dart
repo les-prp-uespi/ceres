@@ -14,10 +14,13 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  Api _api = Api();
 
   void logOut(){
+    _api.logOut();
     Navigator.pop(context);
     Navigator.popAndPushNamed(context, "/login");
+
 
   }
   void vaiHome(){
@@ -66,12 +69,6 @@ class _MenuState extends State<Menu> {
               style: TextStyle(fontSize: 15.0),),
               onTap: vaiReservas,
             ),
-              ListTile(
-                leading: Icon(Icons.build),
-                title: Text("Configurações",
-                  style: TextStyle(fontSize: 15.0),),
-                onTap: (){},
-              ),
 
             ]),
             ListTile(

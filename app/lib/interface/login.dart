@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:uespi_reserva/servico.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
-
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 
 class Login extends StatefulWidget {
@@ -18,12 +20,14 @@ class _LoginState extends State<Login> {
   var _senhalogin = TextEditingController();
   String url = "https://uespi-reserva.herokuapp.com/";
 
+  var _buttonController = RoundedLoadingButtonController();
+
   void vaiCadastro(){
     Navigator.pushNamed(context, "/cadastroUsuario");
 
   }
 
-  _login() async {
+  void _login() async {
     http.Response response = await http.post(
       url,
       body:
@@ -33,6 +37,7 @@ class _LoginState extends State<Login> {
         }
     );
     if(_userlogin.text.isEmpty || _senhalogin.text.isEmpty){
+      _buttonController.error();
       showDialog(context: context,
           builder: (context){
             return AlertDialog(
@@ -42,6 +47,7 @@ class _LoginState extends State<Login> {
                 style: TextStyle(fontSize: 18),),
               actions: <Widget>[
                 FlatButton(onPressed:(){
+                  _buttonController.reset();
                   Navigator.pop(context);
                 },
                     child: Text("OK"))
@@ -52,8 +58,13 @@ class _LoginState extends State<Login> {
     if(response.statusCode == 200){
        Usuario.token = json.decode(response.body)["token"];
        Usuario.id = json.decode(response.body)["user_id"];
-      _entrar();
+       _buttonController.success();
+       Future.delayed(
+        Duration(seconds: 0),
+           (){return _entrar();}
+       );
     }else{
+      _buttonController.error();
       showDialog(context: context,
       builder: (context){
         return AlertDialog(
@@ -63,6 +74,7 @@ class _LoginState extends State<Login> {
           style: TextStyle(fontSize: 18),),
           actions: <Widget>[
             FlatButton(onPressed:(){
+              _buttonController.reset();
               Navigator.pop(context);
             },
               child: Text("OK"))
@@ -144,14 +156,10 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: 300.0,
-                    alignment: Alignment.center,
-                   color: Colors.blue,
-                    child: FlatButton(onPressed: _login,
-                        child: Text("Entrar",
-                        style: TextStyle(fontSize: 15.0))),
-                  ),
+                  child: RoundedLoadingButton(onPressed: _login,
+                      controller: _buttonController,
+                      child: Text("Entrar",
+                      style: TextStyle(fontSize: 15.0))),
                 ),
                 Container(
                   height: 40,

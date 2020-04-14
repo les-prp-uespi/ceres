@@ -13,6 +13,17 @@ const urlUsuarios = "https://uespi-reserva.herokuapp.com/api/usuario";
 const urlReservas = "https://uespi-reserva.herokuapp.com/api/reservar";
 
 Usuario user;
+List<String> horarios = ["8:00", "8:50", "9:40", "10:30", "11:20", "12:00", "14:00",
+  "14:50", "15:40", "16:30", "17:20", "18:00", "18:50", "19:40", "20:30",
+  "21:20", "22:00"];
+
+var coresI = [Colors.black, Colors.black,Colors.black,Colors.black,Colors.black,
+  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,
+  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black];
+
+var coresF = [Colors.black, Colors.black,Colors.black,Colors.black,Colors.black,
+  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,
+  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black];
 
 
 class Api {
@@ -109,9 +120,19 @@ class Api {
    }
 
 
+   void logOut() async {
+     http.Response response = await http.post(
+         "https://uespi-reserva.herokuapp.com/logout",
+       headers: {
+         HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
+       },
+     );
+     print(response.body);
+   }
+
    //Requisições de Reservas
 
-   Future<int> reservar(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU) async {
+   Future<int> reservar(DateTime _data, String _hi, String _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
 
@@ -123,8 +144,8 @@ class Api {
          {
 
            "data":"${formatDate(_data, [dd,':',mm,':',yyyy])}",
-           "horario_inicio":"${_hi.hour}:${_hi.minute}",
-           "horario_final":"${_hf.hour}:${_hf.minute}",
+           "horario_inicio":"$_hi",
+           "horario_final":"$_hf",
            "id_material": "$_idM",
            "id_usuario": "$_idU"
 
@@ -167,7 +188,7 @@ class Api {
 
    }
 
-   void editarReserva(DateTime _data, TimeOfDay _hi, TimeOfDay _hf, int _idM, int _idU, int _idReserv) async {
+   void editarReserva(DateTime _data, String _hi, String _hf, int _idM, int _idU, int _idReserv) async {
      print("edit");
      http.Response response = await http.put(
          urlReservas + "/$_idReserv",
@@ -178,8 +199,8 @@ class Api {
          {
 
            "data":"${formatDate(_data, [dd,':',mm,':',yyyy])}",
-           "horario_inicio":"${_hi.hour}:${_hi.minute}",
-           "horario_final":"${_hf.hour}:${_hf.minute}",
+           "horario_inicio":"$_hi",
+           "horario_final":"$_hf",
            "id_material": "$_idM",
            "id_usuario": "$_idU"
 

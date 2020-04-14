@@ -38,17 +38,23 @@ class _TelaReservasState extends State<TelaReservas>{
                 switch(snapshot.connectionState){
                   case ConnectionState.none:
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                     break;
                   case ConnectionState.waiting:
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                     break;
                   case ConnectionState.active:
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     );
                     break;
                   case ConnectionState.done:
@@ -77,6 +83,8 @@ class _TelaReservasState extends State<TelaReservas>{
 
 
   Widget viewReservas(Reserva reserva){
+    String imagem = reserva.tipoMAterial == "movel"? 'assets/DataShowNv.png':
+    'assets/Audi.png';
     var icone = reserva.tipoMAterial == "movel"? Icons.personal_video: Icons.room;
     return Container(
       child: GestureDetector(
@@ -92,8 +100,9 @@ class _TelaReservasState extends State<TelaReservas>{
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Icon(icone,
-                        size: 25,),
+                      Image.asset(imagem,
+                        height: 85,
+                        width: 85,),
                       Text(reserva.nomeMaterial,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 25,

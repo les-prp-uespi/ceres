@@ -28,6 +28,8 @@ dependencies:
   intl: ^0.16.1
   date_format: ^1.0.8
   flutter_rounded_date_picker: 1.0.4
+  table_calendar: ^2.2.3
+  rounded_loading_button: ^1.0.0
 
 
 dev_dependencies:
@@ -58,6 +60,7 @@ flutter:
    - assets/DatashowFundo.png
    - assets/DataShow.png
    - assets/datashow1.png
+   - assets/DataShowNv.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

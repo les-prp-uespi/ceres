@@ -6,12 +6,24 @@ import 'package:uespi_reserva/modelos/recurso.dart';
 import 'package:uespi_reserva/servico.dart';
 
 
+
 class TelaMateriais extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _TelaMateriaisState();
 
 }
 class _TelaMateriaisState extends State<TelaMateriais> {
+  void _deixaPreto(){
+    for(int _i = 0; _i <= 16; _i++) {
+      setState(() {
+        coresI[_i] = Colors.black;
+      });
+      setState(() {
+        coresF[_i] = Colors.black;
+      });
+    }
+
+  }
   Api _api = Api();
   _listMateriais (){
     return _api.getMateriais();
@@ -22,6 +34,7 @@ class _TelaMateriaisState extends State<TelaMateriais> {
 
   @override
   Widget build(BuildContext context) {
+    _deixaPreto();
     _getUser();
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -86,6 +99,8 @@ class _TelaMateriaisState extends State<TelaMateriais> {
   }
 
   Widget viewMAteriais(Recurso recurso){
+    String imagem = recurso.tipo == "movel"? 'assets/DataShowNv.png':
+    'assets/Audi.png';
     var icone = recurso.tipo == "movel"? Icons.personal_video: Icons.room;
     return Container(
       child: GestureDetector(
@@ -96,25 +111,36 @@ class _TelaMateriaisState extends State<TelaMateriais> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Icon(icone,
-                      size: 25,),
+                      Image.asset(imagem,
+                      height: 85,
+                      width: 85,),
                       Text(recurso.nome,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 25,
-                      fontWeight: FontWeight.w400, ),
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.white),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(recurso.tipo,
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontSize: 15
-                        ),)),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(icone,
+                              size: 15),
+                              Text(recurso.tipo,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15
+                              ),),
+                            ],
+                          ),
+                        )),
                     ],
                   ),
                 ),
