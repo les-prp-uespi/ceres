@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:uespi_reserva/interface/telaCadastroUsuario.dart';
 import 'package:uespi_reserva/modelos/reservas.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'modelos/recurso.dart';
@@ -17,17 +18,18 @@ List<String> horarios = ["8:00", "8:50", "9:40", "10:30", "11:20", "12:00", "14:
   "14:50", "15:40", "16:30", "17:20", "18:00", "18:50", "19:40", "20:30",
   "21:20", "22:00"];
 
-var coresI = [Colors.black, Colors.black,Colors.black,Colors.black,Colors.black,
-  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,
-  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black];
+var coresI = [Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
+  Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
+  Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white];
 
-var coresF = [Colors.black, Colors.black,Colors.black,Colors.black,Colors.black,
-  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,
-  Colors.black,Colors.black,Colors.black,Colors.black,Colors.black,Colors.black];
+var coresF = [Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
+  Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
+  Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white];
 
 
 class Api {
 
+  bool ok;
 
   //Requisições de Materiais
 
@@ -49,7 +51,7 @@ class Api {
 
     //Requisições de Usuário
 
-    void cadastrarUsuario(String _nome, String _login, String _senha, String _curso) async{
+    Future cadastrarUsuario(String _nome, String _login, String _senha, String _curso) async{
      http.Response response = await http.post(
          urlUsuarios,
        body:
@@ -64,6 +66,20 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
+     if(response.statusCode == 201){
+       buttonCadastro.success();
+       ok = true;
+     }else{
+       buttonCadastro.error();
+       Future.delayed(
+         Duration(
+           seconds: 2
+         ),(){
+           return buttonCadastro.reset();
+       }
+       );
+
+     }
     }
 
 
@@ -104,6 +120,11 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
+     if(response.statusCode == 201){
+       ok = true;
+     }else{
+       ok = false;
+     }
    }
 
    void excluirUsuario() async {

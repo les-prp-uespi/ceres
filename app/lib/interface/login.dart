@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
        Usuario.id = json.decode(response.body)["user_id"];
        _buttonController.success();
        Future.delayed(
-        Duration(seconds: 0),
+        Duration(seconds: 1),
            (){return _entrar();}
        );
     }else{

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../servico.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+var buttonCadastro = RoundedLoadingButtonController();
 
 class CadastroUsuario extends StatefulWidget {
+
   @override
   _CadastroUsuarioState createState() => _CadastroUsuarioState();
 }
@@ -9,12 +13,16 @@ class CadastroUsuario extends StatefulWidget {
 class _CadastroUsuarioState extends State<CadastroUsuario> {
   Api _api = Api();
 
+
   var _nomeController = TextEditingController();
   var _emailController = TextEditingController();
   var _senhaController = TextEditingController();
   var _confirmaController = TextEditingController();
   var _cursoController = TextEditingController();
   String _nome, _email, _senha, _curso;
+
+
+
   void _cancelar(){
     _nomeController.clear();
     _emailController.clear();
@@ -23,13 +31,14 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     _cursoController.clear();
     Navigator.pop(context);
   }
-  void _verifica(){
+  Future _verifica(){
     if(_nomeController.text.isEmpty ||
         _emailController.text.isEmpty||
         _senhaController.text.isEmpty||
         _confirmaController.text.isEmpty||
         _cursoController.text.isEmpty
       ){
+      buttonCadastro.error();
       showDialog(context: context,
           builder: (context){
             return AlertDialog(
@@ -40,6 +49,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
               actions: <Widget>[
                 FlatButton(onPressed:(){
                   Navigator.pop(context);
+                  buttonCadastro.reset();
                 },
                     child: Text("OK"))
               ],
@@ -52,7 +62,17 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       if(_senhaController.text == _confirmaController.text){
         _senha = _senhaController.text;
         _api.cadastrarUsuario(_nome, _email, _senha, _curso);
-        Navigator.pop(context);
+        Future.delayed(
+          Duration(seconds: 1),
+            (){
+            if(_api.ok){
+              return Navigator.pop(context);
+            }else{
+              return null;
+            }
+
+            }
+        );
       }else{
         showDialog(context: context,
             builder: (context){
@@ -169,14 +189,11 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: 300.0,
-                alignment: Alignment.center,
-                color: Colors.blue,
-                child: FlatButton(onPressed:_verifica,
-                    child: Text("Cadastrar",
-                        style: TextStyle(fontSize: 15.0))),
-              ),
+              child: RoundedLoadingButton(
+                onPressed: _verifica,
+                controller: buttonCadastro,
+                child: Text("Cadastrar"),
+              )
             ),
             Container(
               height: 40,

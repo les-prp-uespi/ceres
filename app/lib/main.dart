@@ -7,6 +7,7 @@ import 'package:uespi_reserva/interface/telaReservas.dart';
 
 void main() => runApp(
     new MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Login(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new Login(), 

@@ -13,13 +13,13 @@ class TelaMateriais extends StatefulWidget {
 
 }
 class _TelaMateriaisState extends State<TelaMateriais> {
-  void _deixaPreto(){
+  void _deixaBranco(){
     for(int _i = 0; _i <= 16; _i++) {
       setState(() {
-        coresI[_i] = Colors.black;
+        coresI[_i] = Colors.white;
       });
       setState(() {
-        coresF[_i] = Colors.black;
+        coresF[_i] = Colors.white;
       });
     }
 
@@ -34,7 +34,7 @@ class _TelaMateriaisState extends State<TelaMateriais> {
 
   @override
   Widget build(BuildContext context) {
-    _deixaPreto();
+    _deixaBranco();
     _getUser();
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -147,7 +147,7 @@ class _TelaMateriaisState extends State<TelaMateriais> {
               )),
         ),
         onTap: (){
-          Navigator.push(context,  MaterialPageRoute(builder: (context)=>TelaCadastraReserva(recurso: recurso,)));
+          Navigator.push(context,  MaterialPageRoute(builder: (context)=>TelaCadastraReserva(recurso: recurso, rOUe: true,)));
         },
       ),
 

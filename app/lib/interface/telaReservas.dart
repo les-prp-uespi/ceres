@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uespi_reserva/interface/ediReserva.dart';
 import 'package:uespi_reserva/interface/menu.dart';
-import 'package:uespi_reserva/interface/telaMateriais.dart';
+import 'package:uespi_reserva/interface/telaCadastrarReserva.dart';
 import 'package:uespi_reserva/modelos/reservas.dart';
 import 'package:uespi_reserva/servico.dart';
-import 'telaCadastrarReserva.dart';
+
 
 class TelaReservas extends StatefulWidget{
   @override
@@ -20,7 +19,7 @@ class _TelaReservasState extends State<TelaReservas>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
       backgroundColor: Colors.blue,
       drawer: Menu(),
       appBar: AppBar(
@@ -60,9 +59,8 @@ class _TelaReservasState extends State<TelaReservas>{
                   case ConnectionState.done:
                     if(snapshot.data.isNotEmpty){
                       List<Reserva> reservas = snapshot.data;
-                      return GridView.builder(
+                      return ListView.builder(
                         itemCount: snapshot.data.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                         itemBuilder: (BuildContext context, int index){
                           return viewReservas(reservas[index]);
                         },
@@ -86,77 +84,100 @@ class _TelaReservasState extends State<TelaReservas>{
     String imagem = reserva.tipoMAterial == "movel"? 'assets/DataShowNv.png':
     'assets/Audi.png';
     var icone = reserva.tipoMAterial == "movel"? Icons.personal_video: Icons.room;
-    return Container(
-      child: GestureDetector(
-        child: Container(
-          child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Image.asset(imagem,
-                        height: 85,
-                        width: 85,),
-                      Text(reserva.nomeMaterial,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25,
-                          fontWeight: FontWeight.w400, ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(reserva.tipoMAterial,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                fontSize: 15
-                            ),)),
-                    ],
-                  ),
-                ),
-              )),
+    return Card(
+      elevation: 10,
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: Image.asset(imagem),
         ),
-        onTap: (){
-          showDialog(context: context,
-              builder: (context){
-                return AlertDialog(
-                  title: Text("Informações de Reserva",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-                  content: Container(
-                    height: 120,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Material: ${reserva.nomeMaterial}",
-                          style: TextStyle(fontSize: 18),),
-                        Text("Data: ${reserva.data}",
-                          style: TextStyle(fontSize: 18),),
-                        Text("Horário Inicial: ${reserva.horarioInicio}",
-                          style: TextStyle(fontSize: 18),),
-                        Text("Horário Final: ${reserva.horarioFinal}",
-                          style: TextStyle(fontSize: 18),),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(onPressed:(){
-                      Navigator.pop(context);
-                      Navigator.push(context,  MaterialPageRoute(builder: (context)=>EditResrva(reserva: reserva,)));
-                    },
-                        child: Text("Editar Reserva")),
-                    FlatButton(onPressed:(){
-                      Navigator.pop(context);
-                    },
-                        child: Text("OK")),
-
-                  ],
-                );
-              });
-        },
+        title: Row(
+          children: <Widget>[
+            Text(reserva.nomeMaterial,
+            style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),)
+          ],
+        ),
+        subtitle: Row(
+          children: <Widget>[
+            Icon(icone),
+            Text(" ${reserva.tipoMAterial}")
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.info_outline),
+                color: Colors.black,
+                onPressed: (){
+                  showDialog(context: context,
+                      builder: (context)
+                      {
+                        return AlertDialog(
+                          title: Text("Reserva"),
+                          content: Container(
+                            height: 120,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("Material: ${reserva.nomeMaterial}",
+                                  style: TextStyle(fontSize: 18),),
+                                Text("Data: ${reserva.data}",
+                                  style: TextStyle(fontSize: 18),),
+                                Text("Horário Inicial: ${reserva.horarioInicio}",
+                                  style: TextStyle(fontSize: 18),),
+                                Text("Horário Final: ${reserva.horarioFinal}",
+                                  style: TextStyle(fontSize: 18),),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Ok"))
+                          ],
+                        );
+                      });
+                }),
+            IconButton(
+                icon: Icon(Icons.edit),
+                color: Colors.blue,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TelaCadastraReserva(reserva: reserva, rOUe: false, )));
+                }),
+            IconButton(
+                icon: Icon(Icons.cancel),
+                color: Colors.red,
+                onPressed: (){
+                  showDialog(context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          title: Text("Cancelar Reserva!",
+                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+                          content: Text("Deseja Realmente Cancelar sua Reserva? ",
+                            style: TextStyle(fontSize: 18),),
+                          actions: <Widget>[
+                            FlatButton(
+                                onPressed:(){
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Não")),
+                            FlatButton(
+                                onPressed: (){
+                                  _api.excluirReserva(reserva.idReserva);
+                                  Navigator.popAndPushNamed(context, "/reservas");
+                                },
+                                child: Text("SIM"))
+                          ],
+                        );
+                      });
+                })
+          ],
+        )
       ),
 
     );
