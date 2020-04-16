@@ -1,12 +1,14 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:uespi_reserva/modelos/recurso.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'package:uespi_reserva/servico.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uespi_reserva/modelos/reservas.dart';
 
+var buttonReservar = RoundedLoadingButtonController();
 
 class TelaCadastraReserva extends StatefulWidget{
   Recurso recurso;
@@ -25,9 +27,12 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
   DateTime _data;
   String _hi, _hf;
 
+
+
   void _salvar() {
     _data = _controllerCalendar.selectedDay;
     if (_data == null || _hi == null || _hf == null){
+      buttonReservar.error();
       print(_data.toString());
       print(_hi.toString());
       print(_hf.toString());
@@ -41,6 +46,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                 style: TextStyle(fontSize: 18),),
               actions: <Widget>[
                 FlatButton(onPressed:(){
+                  buttonReservar.reset();
                   Navigator.pop(context);
                 },
                     child: Text("OK"))
@@ -58,10 +64,12 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
 
 
   void _reservar() {
+    _api.ok = false;
     if (_data == null || _hi == null || _hf == null){
       print(_data.toString());
       print(_hi.toString());
       print(_hf.toString());
+      buttonReservar.error();
 
       showDialog(context: context,
           builder: (context){
@@ -73,6 +81,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
               actions: <Widget>[
                 FlatButton(onPressed:(){
                   Navigator.pop(context);
+                  buttonReservar.reset();
                 },
                     child: Text("OK"))
               ],
@@ -102,10 +111,21 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
               ),
               actions: <Widget>[
                 FlatButton(onPressed:(){
-                  Navigator.pop(context);
                   _api.reservar(_data, _hi, _hf, widget.recurso.id, Usuario.id);
-                  Navigator.pop(context);
-                },
+                  Future.delayed(
+                      Duration(seconds: 1),
+                          (){
+                        print(_api.ok.toString());
+                        if(_api.ok == true){
+                          _api.ok = false;
+                          return Navigator.popAndPushNamed(context, "/materiais");
+                        }else{
+                          return null;
+                        }
+
+                      }
+                  );
+            },
                     child: Text("Sim")),
                 FlatButton(onPressed:(){
                   Navigator.pop(context);
@@ -228,17 +248,14 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                   height: 25,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: 300.0,
-                    alignment: Alignment.center,
-                    color: Colors.yellow,
-                    child: FlatButton(onPressed: widget.rOUe ==true?  _reservar:_salvar,
-                        child: Text(widget.rOUe == true? "Reservar":"Salvar",
-                            style: TextStyle(fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black))),
-                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: RoundedLoadingButton(onPressed: widget.rOUe ==true?  _reservar:_salvar,
+                      color: Colors.yellow,
+                      controller: buttonReservar,
+                      child: Text(widget.rOUe == true? "Reservar":"Salvar",
+                          style: TextStyle(fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black))),
                 ),
               ],
             ),

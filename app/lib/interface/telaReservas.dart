@@ -91,17 +91,15 @@ class _TelaReservasState extends State<TelaReservas>{
           backgroundColor: Colors.transparent,
           child: Image.asset(imagem),
         ),
-        title: Row(
-          children: <Widget>[
-            Text(reserva.nomeMaterial,
-            style: TextStyle(
-              fontWeight: FontWeight.bold
-            ),)
-          ],
-        ),
+        title: Text(reserva.nomeMaterial,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),),
         subtitle: Row(
           children: <Widget>[
-            Icon(icone),
+            Icon(icone,
+            size: 12,),
             Text(" ${reserva.tipoMAterial}")
           ],
         ),

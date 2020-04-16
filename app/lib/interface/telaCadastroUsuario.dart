@@ -65,7 +65,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
         Future.delayed(
           Duration(seconds: 1),
             (){
-            if(_api.ok){
+            if(_api.ok == true){
+              _api.ok = false;
               return Navigator.pop(context);
             }else{
               return null;
