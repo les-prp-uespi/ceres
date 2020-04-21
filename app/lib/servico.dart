@@ -2,18 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:uespi_reserva/interface/telaCadastroUsuario.dart';
 import 'package:uespi_reserva/modelos/reservas.dart';
 import 'package:uespi_reserva/modelos/usuario.dart';
 import 'modelos/recurso.dart';
 import 'package:http/http.dart' as http;
 import 'package:date_format/date_format.dart';
-import 'package:uespi_reserva/interface/telaCadastrarReserva.dart';
+import 'package:uespi_reserva/controllers.dart';
 
 
 const urlMateriais = "https://uespi-reserva.herokuapp.com/api/materiais";
 const urlUsuarios = "https://uespi-reserva.herokuapp.com/api/usuario";
 const urlReservas = "https://uespi-reserva.herokuapp.com/api/reservar";
+const urlBase = "https://uespi-reserva.herokuapp.com/";
+
 
 Usuario user;
 List<String> horarios = ["8:00", "8:50", "9:40", "10:30", "11:20", "12:00", "14:00",
@@ -28,10 +29,8 @@ var coresF = [Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
   Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white,
   Colors.white,Colors.white, Colors.white,Colors.white,Colors.white,Colors.white];
 
-
 class Api {
 
-  bool ok;
 
   //Requisições de Materiais
 
@@ -68,20 +67,49 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
-     if(response.statusCode == 201){
-       buttonCadastro.success();
-       ok = true;
-     }else{
-       buttonCadastro.error();
-       Future.delayed(
-         Duration(
-           seconds: 2
-         ),(){
-           return buttonCadastro.reset();
-       }
-       );
+
+     switch(response.statusCode){
+       case 500:
+         buttonCadastro.error();
+         return response.statusCode;
+         break;
+       case 201:
+         buttonCadastro.success();
+         return response.statusCode;
 
      }
+    }
+
+
+    Future login() async{
+      http.Response response = await http.post(
+          urlBase,
+          body:
+          {
+            "login":"${userlogin.text}",
+            "senha": "${senhalogin.text}"
+          }
+      );
+
+      print(response.statusCode);
+        switch (response.statusCode){
+          case 200:
+            Usuario.token = json.decode(response.body)["token"];
+            Usuario.id = json.decode(response.body)["user_id"];
+            buttonController.success();
+            return response.statusCode;
+            break;
+          case 500:
+            buttonController.error();
+            return response.statusCode;
+          case 401:
+            buttonController.error();
+            return response.statusCode;
+          case 404:
+            buttonController.error();
+            return response.statusCode;
+        }
+
     }
 
 
@@ -104,7 +132,7 @@ class Api {
    }
 
 
-   void atualizarUsuario(String _nome, String _login, String _senha, String _curso) async{
+   Future atualizarUsuario(String _nome, String _login, String _senha, String _curso) async{
      http.Response response = await http.put(
          urlUsuarios + "/${Usuario.id}",
          headers: {
@@ -122,14 +150,21 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
-     if(response.statusCode == 201){
-       ok = true;
-     }else{
-       ok = false;
+
+     switch(response.statusCode){
+       case 500:
+         buttonSalvaUser.error();
+         return response.statusCode;
+         break;
+       case 200:
+         buttonSalvaUser.success();
+         return response.statusCode;
+
      }
+
    }
 
-   void excluirUsuario() async {
+   Future excluirUsuario() async {
      http.Response response = await http.delete(
        urlUsuarios + "/${Usuario.id}",
        headers: {
@@ -140,12 +175,22 @@ class Api {
      print("${response.statusCode}");
      print("${response.body}");
 
+     switch(response.statusCode){
+       case 500:
+         buttonExcluiUser.error();
+         return response.statusCode;
+         break;
+       case 200:
+         buttonExcluiUser.success();
+         return response.statusCode;
+     }
+
    }
 
 
    void logOut() async {
      http.Response response = await http.post(
-         "https://uespi-reserva.herokuapp.com/logout",
+         urlBase + "logout",
        headers: {
          HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
        },
@@ -155,7 +200,7 @@ class Api {
 
    //Requisições de Reservas
 
-   Future<int> reservar(DateTime _data, String _hi, String _hf, int _idM, int _idU) async {
+   void reservar(DateTime _data, String _hi, String _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
 
@@ -177,14 +222,6 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
-
-     if(response.statusCode == 201){
-       ok = true;
-       buttonReservar.success();
-     }else{
-       buttonReservar.error();
-       ok = false;
-     }
 
 
    }
@@ -244,7 +281,7 @@ class Api {
 
    void excluirReserva(_idReserva) async {
      http.Response response = await http.delete(
-       urlReservas + "/${_idReserva}",
+       urlReservas + "/$_idReserva",
        headers: {
          HttpHeaders.authorizationHeader: 'Bearer ${Usuario.token}'
        },

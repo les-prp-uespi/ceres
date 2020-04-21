@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/servico.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:uespi_reserva/controllers.dart';
+
 
 class EditUser extends StatefulWidget {
   @override
@@ -9,14 +12,30 @@ class EditUser extends StatefulWidget {
 class _EditUserState extends State<EditUser> {
   Api _api = Api();
 
-  var _nomeController = TextEditingController();
-  var _emailController = TextEditingController();
-  var _senhaController = TextEditingController();
-  var _confirmaController = TextEditingController();
-  var _cursoController = TextEditingController();
   String _nome, _email, _senha, _curso;
 
-  void _excluir(){
+
+
+  void _mostraDialog(_titulo, _corpo){
+    showDialog(context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text(_titulo,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+            content: Text(_corpo,
+              style: TextStyle(fontSize: 18),),
+            actions: <Widget>[
+              FlatButton(onPressed:(){
+                Navigator.pop(context);
+                buttonSalvaUser.reset();
+              },
+                  child: Text("OK"))
+            ],
+          );
+        });
+  }
+
+  void _excluir() async{
     showDialog(context: context,
         builder: (context){
           return AlertDialog(
@@ -28,72 +47,65 @@ class _EditUserState extends State<EditUser> {
               FlatButton(
                   onPressed:(){
                 Navigator.pop(context);
+                buttonExcluiUser.reset();
                 },
                   child: Text("Não")),
               FlatButton(
-                  onPressed: (){
-                    _api.excluirUsuario();
-                    Navigator.popAndPushNamed(context, "/login");
+                  onPressed: () async {
+                    int _statusCode = await _api.excluirUsuario();
+                    switch (_statusCode){
+                      case 200:
+                        Navigator.pushNamed(context, '/login');
+                    }
                     },
                   child: Text("SIM"))
             ],
           );
         });
   }
+
   void _cancelar(){
-    _nomeController.clear();
-    _emailController.clear();
-    _senhaController.clear();
-    _confirmaController.clear();
-    _cursoController.clear();
+    nomeEdit.clear();
+    emailEdit.clear();
+    senhaEdit.clear();
+    confirmaEdit.clear();
+    cursoEdit.clear();
     Navigator.pop(context);
   }
-  void _verifica(){
-    if(_nomeController.text.isEmpty ||
-        _emailController.text.isEmpty||
-        _senhaController.text.isEmpty||
-        _confirmaController.text.isEmpty||
-        _cursoController.text.isEmpty
+  void _verifica() async{
+    if(nomeEdit.text.isEmpty ||
+        emailEdit.text.isEmpty||
+        senhaEdit.text.isEmpty||
+        confirmaEdit.text.isEmpty||
+        cursoEdit.text.isEmpty
     ){
-      showDialog(context: context,
-          builder: (context){
-            return AlertDialog(
-              title: Text("Nome Vazio !",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-              content: Text("Todos os campos devem ser preenchidos",
-                style: TextStyle(fontSize: 18),),
-              actions: <Widget>[
-                FlatButton(onPressed:(){
-                  Navigator.pop(context);
-                },
-                    child: Text("OK"))
-              ],
-            );
-          });
+      buttonSalvaUser.error();
+      _mostraDialog("Campo vazio!", "Todos os campos devem ser preenchidos!");
+
     }else{
-      _nome = _nomeController.text;
-      _email = _emailController.text;
-      _curso = _cursoController.text;
-      if(_senhaController.text == _confirmaController.text){
-        _senha = _senhaController.text;
-        _api.atualizarUsuario(_nome, _email, _senha, _curso);
-        Navigator.pop(context);
+      _nome = nomeEdit.text;
+      _email = emailEdit.text;
+      _curso = cursoEdit.text;
+      if(senhaEdit.text != confirmaEdit.text){
+        buttonSalvaUser.error();
+        _mostraDialog("As senhas não correspondem",
+            "Verifique a senha e tente novamente");
+
       }else{
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text("As senhas não correspondem!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-                content: Text("Digite novamente",
-                  style: TextStyle(fontSize: 18),),
-                actions: <Widget>[
-                  FlatButton(onPressed:(){
-                    Navigator.pop(context);
-                  },
-                      child: Text("OK"))
-                ],
-              );
-            });
+        _senha = senhaEdit.text;
+        int _statusCode = await _api.atualizarUsuario(_nome, _email, _senha, _curso);
+        switch (_statusCode){
+          case 500:
+            _mostraDialog("Erro", "Este Usuário já existe!");
+            break;
+          case 200:
+            Navigator.pop(context);
+            nomeEdit.clear();
+            emailEdit.clear();
+            cursoEdit.clear();
+            senhaEdit.clear();
+            confirmaEdit.clear();
+        }
       }
     }
   }
@@ -112,8 +124,8 @@ class _EditUserState extends State<EditUser> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: _nomeController,
+              child: TextField(
+                controller: nomeEdit..text = '${user.nome}',
                 decoration: InputDecoration(
                   icon: Icon(Icons.person),
                   labelText: 'Nome',
@@ -128,7 +140,7 @@ class _EditUserState extends State<EditUser> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                controller: _emailController,
+                controller: emailEdit..text = '${user.login}',
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   icon: Icon(Icons.account_circle),
@@ -146,7 +158,7 @@ class _EditUserState extends State<EditUser> {
               child: TextField(
                 keyboardType: TextInputType.text,
                 obscureText: true,
-                controller: _senhaController,
+                controller: senhaEdit,
                 decoration: InputDecoration(
                   icon: Icon(Icons.lock_outline),
                   labelText: 'Nova Senha',
@@ -162,7 +174,7 @@ class _EditUserState extends State<EditUser> {
               child: TextField(
                 keyboardType: TextInputType.text,
                 obscureText: true,
-                controller: _confirmaController,
+                controller: confirmaEdit,
                 decoration: InputDecoration(
                   icon: Icon(Icons.lock_outline),
                   labelText: 'Confirmar Nova Senha',
@@ -177,7 +189,7 @@ class _EditUserState extends State<EditUser> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 keyboardType: TextInputType.text,
-                controller: _cursoController,
+                controller: cursoEdit..text = '${user.curso}',
                 decoration: InputDecoration(
                   icon: Icon(Icons.school),
                   labelText: 'Curso',
@@ -194,14 +206,11 @@ class _EditUserState extends State<EditUser> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: 300.0,
-                alignment: Alignment.center,
-                color: Colors.blue,
-                child: FlatButton(onPressed:_verifica,
-                    child: Text("Salvar Mudanças",
-                        style: TextStyle(fontSize: 15.0))),
-              ),
+              child: RoundedLoadingButton(
+                  controller: buttonSalvaUser,
+                  onPressed:_verifica,
+                  child: Text("Salvar Mudanças",
+                      style: TextStyle(fontSize: 15.0))),
             ),
             Container(
               height: 40,
@@ -211,14 +220,12 @@ class _EditUserState extends State<EditUser> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: 300.0,
-                alignment: Alignment.center,
-                color: Colors.red,
-                child: FlatButton(onPressed:_excluir,
-                    child: Text("Excluir Usuário",
-                        style: TextStyle(fontSize: 15.0))),
-              ),
+              child: RoundedLoadingButton(
+                  controller: buttonExcluiUser,
+                  onPressed:_excluir,
+                  color: Colors.red,
+                  child: Text("Excluir Usuário",
+                      style: TextStyle(fontSize: 15.0))),
             ),
           ],
         ),

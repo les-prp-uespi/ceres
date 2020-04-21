@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../servico.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-
-var buttonCadastro = RoundedLoadingButtonController();
+import 'package:uespi_reserva/controllers.dart';
 
 class CadastroUsuario extends StatefulWidget {
 
@@ -12,84 +11,71 @@ class CadastroUsuario extends StatefulWidget {
 
 class _CadastroUsuarioState extends State<CadastroUsuario> {
   Api _api = Api();
-
-
-  var _nomeController = TextEditingController();
-  var _emailController = TextEditingController();
-  var _senhaController = TextEditingController();
-  var _confirmaController = TextEditingController();
-  var _cursoController = TextEditingController();
   String _nome, _email, _senha, _curso;
 
-
+  void _mostraDialog(_titulo, _corpo){
+    showDialog(context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text(_titulo,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+            content: Text(_corpo,
+              style: TextStyle(fontSize: 18),),
+            actions: <Widget>[
+              FlatButton(onPressed:(){
+                Navigator.pop(context);
+                buttonCadastro.reset();
+              },
+                  child: Text("OK"))
+            ],
+          );
+        });
+  }
 
   void _cancelar(){
-    _nomeController.clear();
-    _emailController.clear();
-    _senhaController.clear();
-    _confirmaController.clear();
-    _cursoController.clear();
+    nomeController.clear();
+    emailController.clear();
+    senhaController.clear();
+    confirmaController.clear();
+    cursoController.clear();
     Navigator.pop(context);
   }
-  Future _verifica(){
-    if(_nomeController.text.isEmpty ||
-        _emailController.text.isEmpty||
-        _senhaController.text.isEmpty||
-        _confirmaController.text.isEmpty||
-        _cursoController.text.isEmpty
+
+  void _verifica() async{
+    if(nomeController.text.isEmpty ||
+        emailController.text.isEmpty||
+        senhaController.text.isEmpty||
+        confirmaController.text.isEmpty||
+        cursoController.text.isEmpty
       ){
       buttonCadastro.error();
-      showDialog(context: context,
-          builder: (context){
-            return AlertDialog(
-              title: Text("Nome Vazio !",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-              content: Text("Todos os campos devem ser preenchidos",
-                style: TextStyle(fontSize: 18),),
-              actions: <Widget>[
-                FlatButton(onPressed:(){
-                  Navigator.pop(context);
-                  buttonCadastro.reset();
-                },
-                    child: Text("OK"))
-              ],
-            );
-          });
-    }else{
-      _nome = _nomeController.text;
-      _email = _emailController.text;
-      _curso = _cursoController.text;
-      if(_senhaController.text == _confirmaController.text){
-        _senha = _senhaController.text;
-        _api.cadastrarUsuario(_nome, _email, _senha, _curso);
-        Future.delayed(
-          Duration(seconds: 1),
-            (){
-            if(_api.ok == true){
-              _api.ok = false;
-              return Navigator.pop(context);
-            }else{
-              return null;
-            }
+      _mostraDialog("Campo vazio!", "Todos os campos devem ser preenchidos!");
 
-            }
-        );
+    }else{
+      _nome = nomeController.text;
+      _email = emailController.text;
+      _curso = cursoController.text;
+      if(senhaController.text != confirmaController.text){
+        buttonCadastro.error();
+        _mostraDialog("As senhas não correspondem",
+            "Verifique a senha e tente novamente");
+
       }else{
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text("As senhas não correspondem!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-                content: Text("Digite novamente",
-                  style: TextStyle(fontSize: 18),),
-                actions: <Widget>[
-                  FlatButton(onPressed:(){
-                    Navigator.pop(context);
-                  },
-                      child: Text("OK"))
-                ],
-              );
-            });
+        _senha = senhaController.text;
+        int _statusCode = await _api.cadastrarUsuario(_nome, _email, _senha, _curso);
+        switch (_statusCode){
+          case 500:
+            _mostraDialog("Erro", "Este Usuário já existe!");
+            break;
+          case 201:
+            Navigator.pop(context);
+            nomeController.clear();
+            emailController.clear();
+            cursoController.clear();
+            senhaController.clear();
+            confirmaController.clear();
+        }
+
       }
     }
   }
@@ -109,7 +95,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _nomeController,
+                controller: nomeController,
                 decoration: InputDecoration(
                   icon: Icon(Icons.person),
                   labelText: 'Nome',
@@ -124,7 +110,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _emailController,
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   icon: Icon(Icons.account_circle),
@@ -140,7 +126,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _senhaController,
+                controller: senhaController,
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -156,7 +142,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _confirmaController,
+                controller: confirmaController,
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -172,7 +158,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _cursoController,
+                controller: cursoController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   icon: Icon(Icons.school),

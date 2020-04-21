@@ -1,10 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
-import 'package:uespi_reserva/interface/telaMateriais.dart';
-import 'package:uespi_reserva/interface/login.dart';
-import 'package:uespi_reserva/interface/telaReservas.dart';
-import 'package:uespi_reserva/modelos/usuario.dart';
 import 'package:uespi_reserva/servico.dart';
 
 class Menu extends StatefulWidget {

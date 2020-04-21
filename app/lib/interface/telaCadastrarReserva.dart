@@ -7,8 +7,7 @@ import 'package:uespi_reserva/modelos/usuario.dart';
 import 'package:uespi_reserva/servico.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uespi_reserva/modelos/reservas.dart';
-
-var buttonReservar = RoundedLoadingButtonController();
+import 'package:uespi_reserva/controllers.dart';
 
 class TelaCadastraReserva extends StatefulWidget{
   Recurso recurso;
@@ -64,7 +63,6 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
 
 
   void _reservar() {
-    _api.ok = false;
     if (_data == null || _hi == null || _hf == null){
       print(_data.toString());
       print(_hi.toString());
@@ -115,13 +113,6 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                   Future.delayed(
                       Duration(seconds: 1),
                           (){
-                        print(_api.ok.toString());
-                        if(_api.ok == true){
-                          _api.ok = false;
-                          return Navigator.popAndPushNamed(context, "/materiais");
-                        }else{
-                          return null;
-                        }
 
                       }
                   );
@@ -192,7 +183,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                     scrollDirection: Axis.horizontal,
                     itemCount: horarios.length,
                     itemBuilder: (BuildContext context, int index){
-                      return ViewHorarios(horarios[index], "I", index);
+                      return viewHorarios(horarios[index], "I", index);
                     },
                   ),
                 ),
@@ -215,7 +206,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                     scrollDirection: Axis.horizontal,
                     itemCount: horarios.length,
                     itemBuilder: (BuildContext context, int index){
-                      return ViewHorarios(horarios[index], "F", index);
+                      return viewHorarios(horarios[index], "F", index);
                     },
                   ),
                 ),
@@ -264,7 +255,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
     );
   }
 
-  Widget ViewHorarios(_mHora, _iOUf, _indice){
+  Widget viewHorarios(_mHora, _iOUf, _indice){
       return GestureDetector(
         child: Padding(
           padding: const EdgeInsets.all(2),
