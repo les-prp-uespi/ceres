@@ -166,8 +166,10 @@ class _TelaReservasState extends State<TelaReservas>{
                                 child: Text("Não")),
                             FlatButton(
                                 onPressed: (){
-                                  _api.excluirReserva(reserva.idReserva);
-                                  Navigator.popAndPushNamed(context, "/reservas");
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    _api.excluirReserva(reserva.idReserva);
+                                  });
                                 },
                                 child: Text("SIM"))
                           ],

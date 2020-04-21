@@ -49,7 +49,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
         cursoController.text.isEmpty
       ){
       buttonCadastro.error();
-      _mostraDialog("Campo vazio!", "Todos os campos devem ser preenchidos!");
+      _mostraDialog("Campo vazio!", "Todos os campos devem ser prenchidos!");
 
     }else{
       _nome = nomeController.text;

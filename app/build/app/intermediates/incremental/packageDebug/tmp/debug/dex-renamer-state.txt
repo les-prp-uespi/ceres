@@ -1,4 +1,4 @@
-#Tue Apr 21 14:55:14 GFT 2020
-base.0=D\:\\arise-uespi\\ceres\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Tue Apr 21 17:37:50 GFT 2020
+base.0=D\:\\LES\\ceres\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

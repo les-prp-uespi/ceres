@@ -36,12 +36,12 @@ class _MenuState extends State<Menu> {
           children: <Widget>[
             Column(
             children:[
-        UserAccountsDrawerHeader(
-            accountName: Text("${user.nome}",
+              UserAccountsDrawerHeader(
+                accountName: Text("${user.nome}",
               style: TextStyle(fontSize: 20.0),),
-            accountEmail: Text("${user.login}",
+                accountEmail: Text("${user.login}",
               style: TextStyle(fontSize: 15.0)),
-          currentAccountPicture: GestureDetector(
+                currentAccountPicture: GestureDetector(
             child: CircleAvatar(
               child: Icon(Icons.account_box,),
               radius: 30.0,

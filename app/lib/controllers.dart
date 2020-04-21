@@ -1,6 +1,6 @@
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:flutter/material.dart';
-import 'servico.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 //Controllers buttons
 var buttonReservar = RoundedLoadingButtonController();
@@ -24,5 +24,8 @@ var cursoEdit = TextEditingController();
 
 var userlogin = TextEditingController();
 var senhalogin = TextEditingController();
+
+//Controler Calendar
+CalendarController controllerCalendar = CalendarController();
 
 

@@ -147,7 +147,8 @@ class _TelaMateriaisState extends State<TelaMateriais> {
               )),
         ),
         onTap: (){
-          Navigator.push(context,  MaterialPageRoute(builder: (context)=>TelaCadastraReserva(recurso: recurso, rOUe: true,)));
+          Navigator.push(context,  MaterialPageRoute(builder:
+              (context)=>TelaCadastraReserva(recurso: recurso, rOUe: true,)));
         },
       ),
 

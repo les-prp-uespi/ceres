@@ -175,15 +175,6 @@ class Api {
      print("${response.statusCode}");
      print("${response.body}");
 
-     switch(response.statusCode){
-       case 500:
-         buttonExcluiUser.error();
-         return response.statusCode;
-         break;
-       case 200:
-         buttonExcluiUser.success();
-         return response.statusCode;
-     }
 
    }
 
@@ -200,7 +191,7 @@ class Api {
 
    //Requisições de Reservas
 
-   void reservar(DateTime _data, String _hi, String _hf, int _idM, int _idU) async {
+   Future reservar(DateTime _data, String _hi, String _hf, int _idM, int _idU) async {
 
      http.Response response = await http.post(
 
@@ -223,7 +214,16 @@ class Api {
      print(response.statusCode);
      print(response.body);
 
+     switch(response.statusCode){
+       case 500:
+         buttonReservar.error();
+         return response.statusCode;
+         break;
+       case 201:
+         buttonReservar.success();
+         return response.statusCode;
 
+     }
    }
 
    Future<List<Reserva>> getReservas() async {
@@ -255,7 +255,7 @@ class Api {
 
    }
 
-   void editarReserva(DateTime _data, String _hi, String _hf, int _idM, int _idU, int _idReserv) async {
+   Future editarReserva(DateTime _data, String _hi, String _hf, int _idM, int _idU, int _idReserv) async {
      print("edit");
      http.Response response = await http.put(
          urlReservas + "/$_idReserv",
@@ -276,7 +276,15 @@ class Api {
 
      print(response.statusCode);
      print(response.body);
-
+     switch(response.statusCode){
+       case 500:
+         buttonReservar.error();
+         return response.statusCode;
+         break;
+       case 200:
+         buttonReservar.success();
+         return response.statusCode;
+     }
    }
 
    void excluirReserva(_idReserva) async {
