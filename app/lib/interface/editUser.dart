@@ -56,6 +56,11 @@ class _EditUserState extends State<EditUser> {
                     switch (_statusCode){
                       case 200:
                         Navigator.pushNamed(context, '/login');
+                        break;
+                      case 500:
+                        Navigator.pop(context);
+                        _mostraDialog("Erro", "Não foi possível excluir o usuário");
+                        buttonExcluiUser.reset();
                     }
                     },
                   child: Text("SIM"))

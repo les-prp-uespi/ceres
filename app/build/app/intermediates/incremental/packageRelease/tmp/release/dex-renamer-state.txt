@@ -1,4 +1,4 @@
-#Fri Apr 03 00:45:53 GFT 2020
-base.0=D\:\\arise-uespi\\ceres\\app\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
+#Wed Apr 22 18:28:21 GFT 2020
+base.0=D\:\\LES\\ceres\\app\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

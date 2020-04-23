@@ -175,7 +175,7 @@ class Api {
      print("${response.statusCode}");
      print("${response.body}");
 
-
+      return response.statusCode;
    }
 
 
@@ -242,8 +242,7 @@ class Api {
              horarioFinal: j["horario final"],
              nomeMaterial: j["nome_material"],
              tipoMAterial: j["tipo"],
-             idMaterial: j["id_material"]
-
+             idMaterial: j["id_material"],
 
          ));
        }
@@ -256,6 +255,7 @@ class Api {
    }
 
    Future editarReserva(DateTime _data, String _hi, String _hf, int _idM, int _idU, int _idReserv) async {
+
      print("edit");
      http.Response response = await http.put(
          urlReservas + "/$_idReserv",

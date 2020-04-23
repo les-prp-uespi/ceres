@@ -8,7 +8,9 @@ class Reserva{
   String nomeMaterial;
   String tipoMAterial;
 
+
   Reserva({this.idReserva, this.idUsuario, this.idMaterial,
-    this.horarioInicio, this.horarioFinal, this.data, this.nomeMaterial, this.tipoMAterial});
+    this.horarioInicio, this.horarioFinal, this.data, this.nomeMaterial,
+    this.tipoMAterial});
 
 }

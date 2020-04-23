@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\arise-uespi\\ceres\\app\\build\\app\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
+            "outputFile": "D:\\LES\\ceres\\app\\build\\app\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\melox\\.gradle\\caches\\transforms-2\\files-2.1\\454541ed0d74e0d0babd214b189709ff\\coordinatorlayout-1.0.0\\res\\values\\values.xml",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "D:\\arise-uespi\\ceres\\app\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "D:\\LES\\ceres\\app\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

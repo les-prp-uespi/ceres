@@ -43,8 +43,10 @@ class _MenuState extends State<Menu> {
               style: TextStyle(fontSize: 15.0)),
                 currentAccountPicture: GestureDetector(
             child: CircleAvatar(
-              child: Icon(Icons.account_box,),
-              radius: 30.0,
+              child: Text(user.nome.substring(0,2),
+              style: TextStyle(
+                fontSize: 60
+              ),)
             ),
             onTap: (){
               Navigator.pushNamed(context, "/editUsuario");

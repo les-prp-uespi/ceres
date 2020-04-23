@@ -26,6 +26,77 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
   DateTime _data;
   String _hi, _hf;
 
+  bool _confirmarResrva(){
+    showDialog(context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(widget.rOUe?
+            "Reservar ?":"Salvar ?",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
+            content: Container(
+              height: 120,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(widget.rOUe?
+                  "Material:  ${widget.recurso.nome}":
+                    widget.reserva.nomeMaterial,
+                    style: TextStyle(fontSize: 18),),
+                  Text("Data: ${formatDate(_data, [dd, '/', mm, '/', yyyy])}",
+                    style: TextStyle(fontSize: 18),),
+                  Text("Horário Inicial: $_hi",
+                    style: TextStyle(fontSize: 18),),
+                  Text("Horário Final: $_hf",
+                    style: TextStyle(fontSize: 18),),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(onPressed: () {
+                buttonReservar.reset();
+                Navigator.pop(context);
+              },
+                  child: Text("Não")),
+              FlatButton(onPressed: () async {
+                switch (widget.rOUe){
+                  case true:
+                    int _statusCode = await _api.reservar(
+                        _data, _hi, _hf, widget.recurso.id, Usuario.id);
+                    Navigator.pop(context);
+                    switch (_statusCode) {
+                      case 500:
+                        _mostraDialog(
+                            "Erro", "Não foi possível concluir a reserva");
+                        break;
+                      case 201:
+                        Navigator.pop(context);
+                    }
+                    break;
+                  case false:
+                    int _statusCode = await _api.editarReserva(
+                        _data, _hi, _hf, widget.reserva.idMaterial,
+                        Usuario.id, widget.reserva.idReserva);
+                    switch (_statusCode) {
+                      case 500:
+                        _mostraDialog("Erro", "Não foi possível efetuar a reserva");
+                        break;
+                      case 200:
+                        Navigator.pushReplacementNamed(context, '/reservas');
+                    }
+
+                    print("idmaterial ${widget.reserva.idReserva}");
+                    print("idmaterial ${widget.reserva.idMaterial}");
+                    print("user ${Usuario.id}");
+                }
+
+              },
+                  child: Text("Sim")),
+            ],
+          );
+        });
+
+  }
+
   void _mostraDialog(_titulo, _corpo){
     showDialog(context: context,
         builder: (context){
@@ -37,7 +108,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
             actions: <Widget>[
               FlatButton(onPressed:(){
                 Navigator.pop(context);
-                buttonCadastro.reset();
+                buttonReservar.reset();
               },
                   child: Text("OK"))
             ],
@@ -56,22 +127,14 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
       print(_hf.toString());
 
       _mostraDialog("Campo Vazio!", "Todos os campos devem ser Preenchidos");
-    }else{
-      int _statusCode = await _api.editarReserva(
-          _data, _hi, _hf, widget.reserva.idMaterial,
-          Usuario.id, widget.reserva.idReserva);
-      switch (_statusCode){
-        case 500:
-          _mostraDialog("Erro", "Não foi possível efetuar a reserva");
-          break;
-        case 200:
-          Navigator.pushReplacementNamed(context, '/reservas');
+    }else {
+      if (int.parse(_hi.replaceAll(new RegExp(':'), '')) >=
+          int.parse(_hf.replaceAll(new RegExp(':'), ''))) {
+        _mostraDialog("Horas Inválidas",
+            "O Horário inicial NÃO pode ser Maior ou Igual o Horário final");
+      }else{
+        _confirmarResrva();
       }
-
-      print("idmaterial ${widget.reserva.idReserva}");
-      print("idmaterial ${widget.reserva.idMaterial}");
-      print("user ${Usuario.id}");
-      Navigator.pop(context);
     }
   }
 
@@ -84,49 +147,14 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
       buttonReservar.error();
 
       _mostraDialog("Campo Vazio!", "Todos os campos devem ser Preenchidos");
-    }else{
-      showDialog(context: context,
-          builder: (context){
-            return AlertDialog(
-              title: Text("Reservar ?",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),),
-              content: Container(
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Material: ${widget.recurso.nome}",
-                      style: TextStyle(fontSize: 18),),
-                    Text("Data: ${formatDate(_data, [dd,':',mm,':',yyyy])}",
-                      style: TextStyle(fontSize: 18),),
-                    Text("Horário Inicial: $_hi",
-                      style: TextStyle(fontSize: 18),),
-                    Text("Horário Final: $_hf",
-                      style: TextStyle(fontSize: 18),),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(onPressed:() async{
-                  int _statusCode = await _api.reservar(
-                      _data, _hi, _hf, widget.recurso.id, Usuario.id);
-                  Navigator.pop(context);
-                  switch (_statusCode){
-                    case 500:
-                      _mostraDialog("Erro", "Não foi possível concluir a reserva");
-                      break;
-                    case 201:
-                      Navigator.pop(context);
-                  }
-            },
-                    child: Text("Sim")),
-                FlatButton(onPressed:(){
-                  Navigator.pop(context);
-                },
-                    child: Text("Não")),
-              ],
-            );
-          });
+    }else {
+      if (int.parse(_hi.replaceAll(new RegExp(':'), '')) >=
+          int.parse(_hf.replaceAll(new RegExp(':'), ''))) {
+        _mostraDialog("Horas Inválidas",
+            "O Horário inicial NÃO pode ser Maior ou Igual o Horário final");
+      } else {
+        _confirmarResrva();
+      }
     }
   }
 
@@ -151,6 +179,10 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
                     color: Colors.white
                   ),
                   child: TableCalendar(
+                    //initialSelectedDay: widget.rOUe?
+                   // DateTime.now():DateTime.now(),
+                    initialCalendarFormat: CalendarFormat.twoWeeks,
+                    locale: 'pt_BR',
                       calendarStyle: CalendarStyle(
                         todayColor: Colors.blue,
                       ),
