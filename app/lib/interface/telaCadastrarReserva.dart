@@ -26,7 +26,7 @@ class _TelaCadastraReservaState extends State<TelaCadastraReserva>{
   DateTime _data;
   String _hi, _hf;
 
-  bool _confirmarResrva(){
+  void _confirmarResrva(){
     showDialog(context: context,
         builder: (context) {
           return AlertDialog(

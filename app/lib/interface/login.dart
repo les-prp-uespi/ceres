@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
           _mostraDialog("Login não autorizado", "Senha incorreta!");
           break;
         case 404:
-          _mostraDialog("Usuário invaálido", "Este Usuário não existe");
+          _mostraDialog("Usuário inválido", "Este Usuário não existe");
 
       }
     }
