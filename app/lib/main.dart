@@ -5,6 +5,8 @@ import 'package:uespi_reserva/interface/telaCadastroUsuario.dart';
 import 'package:uespi_reserva/interface/telaMateriais.dart';
 import 'package:uespi_reserva/interface/telaReservas.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:uespi_reserva/views/home_view.dart';
+import 'package:uespi_reserva/views/login_view.dart';
 
 void main(){
   initializeDateFormatting().then((_) => runApp(MyApp()));
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: LoginView(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new Login(),
         '/materiais': (BuildContext context) => new TelaMateriais(),
