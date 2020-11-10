@@ -13,10 +13,10 @@ class ReservationItemWidget extends StatelessWidget {
         footer: GridTileBar(
           backgroundColor: Colors.black54,
           title: Text("DataShow"),
-          trailing: IconButton(
+          /*trailing: IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {},
-          ),
+          ),*/
         ),
       ),
     );

@@ -53,16 +53,15 @@ class HomeView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: RaisedButton.icon(
-                        icon: Icon(Icons.ac_unit_outlined),
-                        label: Text("Click"),
+                      child: RaisedButton(
+                        child: Text("Salas"),
                         onPressed: () {},
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: RaisedButton(
-                        child: Text("Click"),
+                        child: Text("Materiais"),
                         onPressed: () {},
                       ),
                     ),

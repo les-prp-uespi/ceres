@@ -5,6 +5,7 @@ INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/And
 INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml:1:1-30:12
 INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml:1:1-30:12
 MERGED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml:1:1-30:12
+MERGED from [:shared_preferences] /home/gustavo/Área de Trabalho/ceres/app/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.1.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/412798c5ff5129715d71e58ff213e3a7/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.0.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/36b6b089b86a4b53f161d1de646d1e60/activity-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/2b55f4dd1ddfb477bff2667016cc0a25/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -83,6 +84,8 @@ uses-sdk
 INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/gustavo/Área de Trabalho/ceres/app/android/app/src/main/AndroidManifest.xml
+MERGED from [:shared_preferences] /home/gustavo/Área de Trabalho/ceres/app/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/gustavo/Área de Trabalho/ceres/app/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/412798c5ff5129715d71e58ff213e3a7/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/412798c5ff5129715d71e58ff213e3a7/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.0.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/36b6b089b86a4b53f161d1de646d1e60/activity-1.0.0/AndroidManifest.xml:20:5-22:41

@@ -29,9 +29,10 @@ dependencies:
   flutter_rounded_date_picker: 1.0.4
   table_calendar: ^2.2.3
   rounded_loading_button: ^1.0.0
+
   http: ^0.12.2
   provider: ^4.3.2+2
-
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:
