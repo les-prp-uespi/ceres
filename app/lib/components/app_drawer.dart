@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uespi_reserva/provider/auth_provider.dart';
+import 'package:uespi_reserva/util/name_routes.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -29,7 +30,10 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.library_books),
               title: Text("Recursos"),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                  .pushReplacementNamed(Routes.RESOURCES_VIEW);
+              },
             ),
           ]),
           ListTile(
