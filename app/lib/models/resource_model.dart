@@ -12,8 +12,8 @@ class ResourceModel {
   factory ResourceModel.fromJson(Map<String, dynamic> parsedJson) {
     return ResourceModel(
       id: parsedJson['id'] as int,
-      name: parsedJson['name'] as String,
-      type: parsedJson['type'] as String,
+      name: parsedJson['nome'] as String,
+      type: parsedJson['tipo'] as String,
     );
   }
 }

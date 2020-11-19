@@ -1,4 +1,4 @@
-#Tue Nov 10 23:37:37 BRT 2020
+#Thu Nov 19 14:40:03 BRT 2020
 base.0=/home/gustavo/Área de Trabalho/ceres/app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

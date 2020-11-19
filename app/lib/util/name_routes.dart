@@ -6,6 +6,8 @@ class Routes{
   static final String HOME_VIEW = '/home';
   // ignore: non_constant_identifier_names
   static final String RESOURCES_VIEW = '/resources';
+  // ignore: non_constant_identifier_names
+  static final String CREATE_RESERVATION_VIEW = '/reservation_create';
   
 
 
@@ -18,7 +20,7 @@ class RoutesHttp {
   static final String filterResourcesImmobile = "https://ceres-uespi.herokuapp.com/api/v2/materiais/tipo/I/";
   static final String login = "https://ceres-uespi.herokuapp.com/auth/";
   static final String createAcount = "http://ceres-uespi.herokuapp.com/api/v1/register/";
-  static final String createReservation = "";
+  static final String createReservation = "http://ceres-uespi.herokuapp.com/api/v1/reservas/";
   static final String updateReservation = "";
   static final String getReservations = "";
 

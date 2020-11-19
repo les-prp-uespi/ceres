@@ -16,11 +16,11 @@ class AppDrawer extends StatelessWidget {
               maxRadius: 90,
               child: Image.asset(
                 "assets/logo.png",
-                width: 150,
-                height: 150,
+                width: 120,
+                height: 120,
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 30,),
             ListTile(
               leading: Icon(Icons.book),
               title: Text("Minhas reservas"),
