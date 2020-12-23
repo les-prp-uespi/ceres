@@ -22,10 +22,21 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Text(
+                "CeRes",
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Image.asset(
                 "assets/logo.png",
-                width: 150,
-                height: 150,
+                width: 130,
+                height: 130,
               ),
               AuthForm(),
             ],
