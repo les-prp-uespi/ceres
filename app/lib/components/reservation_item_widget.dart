@@ -21,7 +21,8 @@ class ReservationItemWidget extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, "/reservation_create");
+        Navigator.pushNamed(context, "/reservation_create",
+            arguments: resourceModel);
       },
     );
   }

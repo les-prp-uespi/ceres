@@ -20,7 +20,9 @@ class AppDrawer extends StatelessWidget {
                 height: 120,
               ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             ListTile(
               leading: Icon(Icons.book),
               title: Text("Minhas reservas"),
@@ -31,8 +33,9 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.library_books),
               title: Text("Recursos"),
               onTap: () {
-                Navigator.of(context)
-                  .pushReplacementNamed(Routes.RESOURCES_VIEW);
+                Navigator.of(context).pushReplacementNamed(
+                    Routes.RESOURCES_VIEW,
+                    arguments: RoutesHttp.resources);
               },
             ),
           ]),

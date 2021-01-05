@@ -10,9 +10,9 @@ class ReservationModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "dia": this.data,
-      "inicio": this.tStart,
-      "final": this.tFinal,
+      "day": this.data,
+      "start": this.tStart,
+      "end": this.tFinal,
       "material": this.resource,
       "status": this.status
     };

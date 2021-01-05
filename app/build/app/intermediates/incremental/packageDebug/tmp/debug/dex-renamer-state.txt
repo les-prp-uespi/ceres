@@ -1,4 +1,4 @@
-#Wed Dec 23 16:37:55 BRT 2020
+#Tue Jan 05 16:36:58 BRT 2021
 base.0=C\:\\Users\\gusta\\Documents\\ceres\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -18,10 +18,11 @@ class ControllerProvider with ChangeNotifier {
     return Future.value();
   }
 */
-  Future<List<ResourceModel>> getResources() async {
-    final http.Response response = await http.get(RoutesHttp.resources,
-        headers: {HttpHeaders.authorizationHeader: "token $token"});
+  Future<List<ResourceModel>> getResources(String url) async {
+    final http.Response response =
+        await http.get(url, headers: {'Authorization': "Token $token"});
     String content = response.body;
+    print(response.statusCode);
     List resourcesJson = json.decode(content);
     List<ResourceModel> resources =
         resourcesJson.map((e) => ResourceModel.fromJson(e)).toList();
@@ -30,7 +31,7 @@ class ControllerProvider with ChangeNotifier {
 
   Future createReservation(ReservationModel reservationModel) async {
     final http.Response response = await http.post(RoutesHttp.createReservation,
-        headers: {HttpHeaders.authorizationHeader: "token $token"},
+        headers: {HttpHeaders.authorizationHeader: "Token $token"},
         body: reservationModel.toJson());
     print(response.statusCode);
   }

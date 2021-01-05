@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
+import 'package:uespi_reserva/models/resource_model.dart';
 import 'package:uespi_reserva/provider/controller_provider.dart';
 
 class CreateReservationView extends StatefulWidget {
@@ -36,6 +37,9 @@ class _CreateReservationViewState extends State<CreateReservationView> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ControllerProvider>(context);
+
+    final ResourceModel args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       backgroundColor: Color(0xff2E75BC),
       appBar: AppBar(
@@ -56,7 +60,7 @@ class _CreateReservationViewState extends State<CreateReservationView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Nome do Recurso",
+                  args.name,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
@@ -74,7 +78,7 @@ class _CreateReservationViewState extends State<CreateReservationView> {
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2018),
-                          lastDate: DateTime(2021),
+                          lastDate: DateTime(2028),
                           locale: Localizations.localeOf(context),
                         );
                         setState(() {
@@ -163,12 +167,13 @@ class _CreateReservationViewState extends State<CreateReservationView> {
           RaisedButton(
             onPressed: () {
               controller.createReservation(ReservationModel(
-                  data:
-                      "${dateTime.day.toString()} / ${dateTime.month} / ${dateTime.year}",
-                  resource: 1,
-                  status: false,
-                  tFinal: _valueFinalHorario.toString(),
-                  tStart: _valueInicioHorario.toString(),));
+                data: "${dateTime.year}-${dateTime.month}-${dateTime.day}"
+                    .toString(),
+                resource: args.id,
+                status: false,
+                tFinal: _valueFinalHorario.toString(),
+                tStart: _valueInicioHorario.toString(),
+              ));
             },
             child: Padding(
                 padding: EdgeInsets.only(left: 10, right: 10),

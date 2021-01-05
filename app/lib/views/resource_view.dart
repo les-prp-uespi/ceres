@@ -8,6 +8,7 @@ import 'package:uespi_reserva/provider/controller_provider.dart';
 class ResourceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final String url = ModalRoute.of(context).settings.arguments;
     ControllerProvider controllerProvider =
         Provider.of<ControllerProvider>(context);
     return Scaffold(
@@ -21,7 +22,7 @@ class ResourceView extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         child: FutureBuilder(
-          future: controllerProvider.getResources(),
+          future: controllerProvider.getResources(url),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -50,7 +51,9 @@ class ResourceView extends StatelessWidget {
                       mainAxisSpacing: 20.0,
                     ),
                     itemBuilder: (context, index) {
-                      return ReservationItemWidget(resourceModel: data[index],);
+                      return ReservationItemWidget(
+                        resourceModel: data[index],
+                      );
                     },
                   ),
                 );

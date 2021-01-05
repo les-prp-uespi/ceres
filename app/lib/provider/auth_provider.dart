@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:uespi_reserva/util/local_store.dart';
+import 'package:uespi_reserva/util/name_routes.dart';
 
 class Auth with ChangeNotifier {
   String _token;
@@ -14,14 +15,15 @@ class Auth with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     http.Response response = await http.post(
-      "https://ceres-uespi.herokuapp.com/auth/",
+      RoutesHttp.login,
       body: {
-        "username": email,
+        "email": email,
         "password": password,
       },
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      _token = json.decode(response.body)["token"];
+      _token = json.decode(response.body)["key"];
       print(_token);
       await LocalStore.saveString("token", _token);
       notifyListeners();

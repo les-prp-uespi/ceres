@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/components/app_drawer.dart';
+import 'package:uespi_reserva/util/name_routes.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -55,14 +56,20 @@ class HomeView extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10),
                       child: RaisedButton(
                         child: Text("Salas"),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(Routes.RESOURCES_VIEW,
+                              arguments: RoutesHttp.filterResourcesImmobile);
+                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: RaisedButton(
                         child: Text("Materiais"),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(Routes.RESOURCES_VIEW,
+                              arguments: RoutesHttp.filterResourcesMobile);
+                        },
                       ),
                     ),
                   ],
@@ -82,9 +89,7 @@ class HomeView extends StatelessWidget {
               child: Container(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  children: [
-                    
-                  ],
+                  children: [],
                 ),
               ),
             ),
