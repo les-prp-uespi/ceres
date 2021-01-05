@@ -38,7 +38,7 @@ class ReservationView(generics.ListCreateAPIView):
 
             serializer = self.get_serializer(data = new_reservation)
             serializer.is_valid(raise_exception=True)
-            #serializer.save()
+            serializer.save()
 
             return Response(serializer.data, status= status.HTTP_200_OK)
         return Response({"msg":"Horário não disponivel"}, status= status.HTTP_401_UNAUTHORIZED)

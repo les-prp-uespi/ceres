@@ -29,9 +29,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'users',
     'material',
     'reservation',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_auth',
+    'rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -70,6 +75,11 @@ WSGI_APPLICATION = 'ceres.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
 '''
 DATABASES = {
     'default': {
@@ -77,13 +87,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 '''
-
-DATABASES = {
-    'default': dj_database_url.config()
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -122,7 +127,30 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'core.User' 
 
 
-STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
+STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SITE_ID = 1
