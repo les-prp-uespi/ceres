@@ -27,10 +27,10 @@ class ControllerProvider with ChangeNotifier {
     return Future.value(resources);
   }
 
-  Future createReservation(ReservationModel reservationModel) async {
+  Future<int> createReservation(ReservationModel reservationModel) async {
     final http.Response response = await http.post(RoutesHttp.reservation,
         headers: {HttpHeaders.authorizationHeader: "Token $token"},
         body: reservationModel.toJson());
-    print(response.statusCode);
+    return response.statusCode;
   }
 }

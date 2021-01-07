@@ -13,7 +13,7 @@ class Auth with ChangeNotifier {
     return _token != null;
   }
 
-  Future<void> login(String email, String password) async {
+  Future<int> login(String email, String password) async {
     http.Response response = await http.post(
       RoutesHttp.login,
       body: {
@@ -27,8 +27,9 @@ class Auth with ChangeNotifier {
       print(_token);
       await LocalStore.saveString("token", _token);
       notifyListeners();
-      return Future.value();
+      return Future.value(200);
     }
+    return Future.value(401);
   }
 
   Future<void> logout() async {

@@ -33,14 +33,18 @@ class _CreateReservationViewState extends State<CreateReservationView> {
   String _valueInicioHorario = "8:00";
   String _valueFinalHorario = "8:50";
   DateTime dateTime = DateTime.now();
+  bool _isloading = false;
 
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ControllerProvider>(context);
 
     final ResourceModel args = ModalRoute.of(context).settings.arguments;
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xff2E75BC),
       appBar: AppBar(
         backgroundColor: Color(0xff001F74),
@@ -164,25 +168,47 @@ class _CreateReservationViewState extends State<CreateReservationView> {
               ],
             ),
           ),
-          RaisedButton(
-            onPressed: () {
-              try {
-                controller.createReservation(ReservationModel(
-                  data: "${dateTime.year}-${dateTime.month}-${dateTime.day}"
-                      .toString(),
-                  resource: args.id,
-                  status: false,
-                  tFinal: _valueFinalHorario.toString(),
-                  tStart: _valueInicioHorario.toString(),
-                ));
-              } catch (err) {
-                print(err);
-              }
-            },
-            child: Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: Text("RESERVAR")),
-          ),
+          _isloading
+              ? CircularProgressIndicator()
+              : RaisedButton(
+                  onPressed: () async {
+                    try {
+                      setState(() {
+                        _isloading = !_isloading;
+                      });
+                      final reservation = ReservationModel(
+                        data:
+                            "${dateTime.year}-${dateTime.month}-${dateTime.day}"
+                                .toString(),
+                        resource: args.id,
+                        status: false,
+                        tFinal: _valueFinalHorario.toString(),
+                        tStart: _valueInicioHorario.toString(),
+                      );
+                      int result =
+                          await controller.createReservation(reservation);
+                      print(result);
+                      if (result == 200) {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          content: Text('Reserva feita !!'),
+                        ));
+                      } else {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          content: Text('Não foi possivel fazer a reserva !!'),
+                        ));
+                      }
+                    } catch (err) {
+                      print(err);
+                    } finally {
+                      setState(() {
+                        _isloading = !_isloading;
+                      });
+                    }
+                  },
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Text("RESERVAR")),
+                ),
           SizedBox(
             height: 30,
           )

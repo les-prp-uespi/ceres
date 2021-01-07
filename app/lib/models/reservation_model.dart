@@ -19,8 +19,8 @@ class ReservationModel {
       "day": this.data,
       "start": this.tStart,
       "end": this.tFinal,
-      "material": this.resource,
-      "status": this.status
+      "material": this.resource.toString(),
+      "status": this.status.toString()
     };
   }
 }

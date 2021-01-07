@@ -9,14 +9,29 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   bool _visibilityPass = true;
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final Map<String, String> data = {"email": "", "password": ""};
 
-  _login(BuildContext context) {
+  _login(BuildContext context) async {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    Provider.of<Auth>(context, listen: false).login(data['email'], data['password']);
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+    int resp = await Provider.of<Auth>(context, listen: false)
+        .login(data['email'], data['password']);
+    if (resp == 401) {
+      setState(() {
+        _isLoading = !_isLoading;
+      });
+      return "Verifique suas Credenciais";
+    }
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+    return null;
   }
 
   @override
@@ -70,18 +85,26 @@ class _AuthFormState extends State<AuthForm> {
               SizedBox(
                 height: 15,
               ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.blue)),
-                onPressed: () {
-                  _login(context);
-                },
-                child: Text(
-                  "ENTRAR",
-                  style: TextStyle(fontSize: 15.0),
-                ),
-              ),
+              _isLoading
+                  ? CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    )
+                  : RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Colors.blue)),
+                      onPressed: () {
+                        String msg = _login(context);
+                        if (msg != null) {
+                          Scaffold.of(context)
+                              .showSnackBar(SnackBar(content: Text(msg)));
+                        }
+                      },
+                      child: Text(
+                        "ENTRAR",
+                        style: TextStyle(fontSize: 15.0),
+                      ),
+                    ),
             ],
           ),
         ),
