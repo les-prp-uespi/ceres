@@ -24,6 +24,14 @@ class AppDrawer extends StatelessWidget {
               height: 30,
             ),
             ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(Routes.HOME_VIEW);
+              },
+            ),
+            Divider(),
+            ListTile(
               leading: Icon(Icons.book),
               title: Text("Minhas reservas"),
               onTap: () {},

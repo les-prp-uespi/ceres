@@ -1,4 +1,5 @@
 class ReservationModel {
+  int id;
   final String data;
   final int resource;
   final bool status;
@@ -6,7 +7,12 @@ class ReservationModel {
   final String tFinal;
 
   ReservationModel(
-      {this.data, this.resource, this.status, this.tStart, this.tFinal});
+      {this.id,
+      this.data,
+      this.resource,
+      this.status,
+      this.tStart,
+      this.tFinal});
 
   Map<String, dynamic> toJson() {
     return {

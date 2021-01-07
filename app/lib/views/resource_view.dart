@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uespi_reserva/components/app_drawer.dart';
-import 'package:uespi_reserva/components/reservation_item_widget.dart';
+import 'package:uespi_reserva/components/resource_item_widget.dart';
 import 'package:uespi_reserva/models/resource_model.dart';
 import 'package:uespi_reserva/provider/controller_provider.dart';
 
@@ -51,7 +51,7 @@ class ResourceView extends StatelessWidget {
                       mainAxisSpacing: 20.0,
                     ),
                     itemBuilder: (context, index) {
-                      return ReservationItemWidget(
+                      return ResourceItemWidget(
                         resourceModel: data[index],
                       );
                     },

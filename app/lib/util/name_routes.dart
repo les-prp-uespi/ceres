@@ -14,13 +14,13 @@ class RoutesHttp {
   static final String resources =
       "https://api-ceres.herokuapp.com/api/materiais/";
   static final String filterResourcesMobile =
-      "https://api-ceres.herokuapp.com/api/materiais/tipo/M/";
+      "https://api-ceres.herokuapp.com/api/materiais/?search=M";
   static final String filterResourcesImmobile =
-      "https://api-ceres.herokuapp.com/api/materiais/tipo/I/";
+      "https://api-ceres.herokuapp.com/api/materiais/?search=I";
   static final String createAcount =
       "http://ceres-uespi.herokuapp.com/api/v1/register/";
-  static final String createReservation =
-      "http://ceres-uespi.herokuapp.com/api/v1/reservas/";
+  static final String reservation =
+      "https://api-ceres.herokuapp.com/api/reservas/";
   static final String updateReservation = "";
   static final String getReservations = "";
 }

@@ -166,14 +166,18 @@ class _CreateReservationViewState extends State<CreateReservationView> {
           ),
           RaisedButton(
             onPressed: () {
-              controller.createReservation(ReservationModel(
-                data: "${dateTime.year}-${dateTime.month}-${dateTime.day}"
-                    .toString(),
-                resource: args.id,
-                status: false,
-                tFinal: _valueFinalHorario.toString(),
-                tStart: _valueInicioHorario.toString(),
-              ));
+              try {
+                controller.createReservation(ReservationModel(
+                  data: "${dateTime.year}-${dateTime.month}-${dateTime.day}"
+                      .toString(),
+                  resource: args.id,
+                  status: false,
+                  tFinal: _valueFinalHorario.toString(),
+                  tStart: _valueInicioHorario.toString(),
+                ));
+              } catch (err) {
+                print(err);
+              }
             },
             child: Padding(
                 padding: EdgeInsets.only(left: 10, right: 10),
