@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions, status
-from reservation.serializers import ReservationSerializer
+from reservation.serializers import ReservationSerializer, ReservationListSerializer
 from core.models import Reservation
 from rest_framework.response import Response
 from datetime import datetime
@@ -22,14 +22,12 @@ def is_authorize_reservation(new_reservation):
 
     return True
 
-class ReservationView(generics.ListCreateAPIView):
+class ReservationView(generics.CreateAPIView):
 
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
         
     def create(self, request):
         new_reservation = request.data
@@ -43,6 +41,14 @@ class ReservationView(generics.ListCreateAPIView):
             return Response(serializer.data, status= status.HTTP_200_OK)
         return Response({"msg":"Horário não disponivel"}, status= status.HTTP_401_UNAUTHORIZED)
 
-    
+
+class ReservationListView(generics.ListAPIView):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationListSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
     
     
