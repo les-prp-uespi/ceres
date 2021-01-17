@@ -53,4 +53,13 @@ class ReservationListView(generics.ListAPIView):
             return self.queryset.filter(user=self.request.user)
         return super().get_queryset()
     
-    
+
+class ReservationGenericView(generics.RetrieveUpdateAPIView):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationListSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        queryset = User.objects.get(user = self.request.user)
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data)
