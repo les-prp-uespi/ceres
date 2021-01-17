@@ -22,12 +22,15 @@ def is_authorize_reservation(new_reservation):
 
     return True
 
-class ReservationView(generics.CreateAPIView):
+class ReservationView(generics.ListCreateAPIView):
 
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+    
         
     def create(self, request):
         new_reservation = request.data
@@ -40,8 +43,14 @@ class ReservationView(generics.CreateAPIView):
 
             return Response(serializer.data, status= status.HTTP_200_OK)
         return Response({"msg":"Horário não disponivel"}, status= status.HTTP_401_UNAUTHORIZED)
+    
+    def list(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = ReservationListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
+'''
 class ReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationListSerializer
@@ -49,17 +58,6 @@ class ReservationListView(generics.ListAPIView):
 
 
     def get_queryset(self):
-        if(self.request.method == "GET"):
-            return self.queryset.filter(user=self.request.user)
-        return super().get_queryset()
+        return self.queryset.filter(user=self.request.user)
     
-
-class ReservationGenericView(generics.RetrieveUpdateAPIView):
-    queryset = Reservation.objects.all()
-    serializer_class = ReservationListSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        queryset = Reservation.objects.get(user = self.request.user)
-        serializer = ReservationSerializer(queryset)
-        return Response(serializer.data)
+'''
