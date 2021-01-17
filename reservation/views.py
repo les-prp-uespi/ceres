@@ -61,5 +61,5 @@ class ReservationGenericView(generics.RetrieveUpdateAPIView):
 
     def get(self, request):
         queryset = Reservation.objects.get(user = self.request.user)
-        serializer = ReservationSerializer(queryset, many=True)
+        serializer = ReservationSerializer(queryset)
         return Response(serializer.data)
