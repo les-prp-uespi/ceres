@@ -60,6 +60,6 @@ class ReservationGenericView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        queryset = User.objects.get(user = self.request.user)
-        serializer = UserSerializer(queryset, many=True)
+        queryset = Reservation.objects.get(user = self.request.user)
+        serializer = ReservationSerializer(queryset, many=True)
         return Response(serializer.data)
