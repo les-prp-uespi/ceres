@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uespi_reserva/components/app_drawer.dart';
+import 'package:uespi_reserva/components/reservation_card_widget.dart';
+import 'package:uespi_reserva/models/reservation_model.dart';
+import 'package:uespi_reserva/provider/controller_provider.dart';
 import 'package:uespi_reserva/util/name_routes.dart';
 
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width / 2.5;
+    ControllerProvider controllerProvider =
+        Provider.of<ControllerProvider>(context);
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
@@ -80,17 +87,59 @@ class HomeView extends StatelessWidget {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  children: [],
-                ),
+              child: FutureBuilder(
+                future: controllerProvider.getReservations(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white70,
+                      ),
+                    );
+                  } else if (snapshot.error != null) {
+                    return Center(
+                      child: Text("Ocorreu um erro !"),
+                    );
+                  } else {
+                    List<ReservationModel> data = snapshot.data;
+                    if (data.isEmpty) {
+                      return Center(
+                        child: Text("Não há reservas"),
+                      );
+                    } else {
+                      return Padding(
+                        padding:
+                            EdgeInsets.only(left: 10, right: 10, top: 15.0),
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return ReservationCardWidget(
+                              size,
+                              reservationModel: data[index],
+                            );
+                          },
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      );
+                    }
+                  }
+                },
               ),
             ),
-            //Text("Reservas"),
+            SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),
     );
   }
 }
+
+/*
+ListView.builder(
+                itemBuilder: (context, index) {
+                  return ReservationCardWidget(size);
+                },
+                scrollDirection: Axis.horizontal,
+              ),
+*/
