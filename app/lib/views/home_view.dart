@@ -111,6 +111,7 @@ class HomeView extends StatelessWidget {
                         padding:
                             EdgeInsets.only(left: 10, right: 10, top: 15.0),
                         child: ListView.builder(
+                          itemCount: data.length,
                           itemBuilder: (context, index) {
                             return ReservationCardWidget(
                               size,
