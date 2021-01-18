@@ -1,3 +1,5 @@
+import 'package:uespi_reserva/models/resource_model.dart';
+
 class ReservationModel {
   int id;
   final String data;
@@ -5,6 +7,7 @@ class ReservationModel {
   final bool status;
   final String tStart;
   final String tFinal;
+  final ResourceModel resourceModel;
 
   ReservationModel(
       {this.id,
@@ -12,7 +15,8 @@ class ReservationModel {
       this.resource,
       this.status,
       this.tStart,
-      this.tFinal});
+      this.tFinal,
+      this.resourceModel});
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,5 +26,15 @@ class ReservationModel {
       "material": this.resource.toString(),
       "status": this.status.toString()
     };
+  }
+
+  factory ReservationModel.fromJson(Map<String, dynamic> parsedJson) {
+    return ReservationModel(
+      id: parsedJson['id'] as int,
+      tStart: parsedJson['start'] as String,
+      tFinal: parsedJson['end'] as String,
+      data: parsedJson['day'] as String,
+      resourceModel: ResourceModel.fromJson(parsedJson["material"]),
+    );
   }
 }

@@ -10,6 +10,7 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   bool _visibilityPass = true;
   bool _isLoading = false;
+  bool _createAccount = false;
   final _formKey = GlobalKey<FormState>();
   final Map<String, String> data = {"email": "", "password": ""};
 
@@ -49,6 +50,14 @@ class _AuthFormState extends State<AuthForm> {
           key: _formKey,
           child: Column(
             children: [
+              if (_createAccount)
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: "Nome",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                  ),
+                  keyboardType: TextInputType.text,
+                ),
               TextField(
                 decoration: InputDecoration(
                   labelText: "E-mail",
@@ -82,8 +91,15 @@ class _AuthFormState extends State<AuthForm> {
                   data["password"] = value;
                 },
               ),
-              SizedBox(
-                height: 15,
+              FlatButton(
+                onPressed: () {
+                  setState(() {
+                    _createAccount = !_createAccount;
+                  });
+                },
+                child: _createAccount
+                    ? Text("Possui conta ?")
+                    : Text("Não possui conta ?"),
               ),
               _isLoading
                   ? CircularProgressIndicator(
@@ -101,7 +117,7 @@ class _AuthFormState extends State<AuthForm> {
                         }
                       },
                       child: Text(
-                        "ENTRAR",
+                        _createAccount ? "CRIAR CONTA" : "ENTRAR",
                         style: TextStyle(fontSize: 15.0),
                       ),
                     ),

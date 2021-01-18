@@ -7,6 +7,9 @@ class Routes {
   static final String RESOURCES_VIEW = '/resources';
   // ignore: non_constant_identifier_names
   static final String CREATE_RESERVATION_VIEW = '/reservation_create';
+
+  // ignore: non_constant_identifier_names
+  static final String RESERVATION_VIEW = '/reservation';
 }
 
 class RoutesHttp {

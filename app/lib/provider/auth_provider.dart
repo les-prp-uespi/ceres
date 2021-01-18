@@ -13,6 +13,10 @@ class Auth with ChangeNotifier {
     return _token != null;
   }
 
+  Future createAccount(String nome, String email, String password) async {
+    http.Response response = await http.post("");
+  }
+
   Future<int> login(String email, String password) async {
     http.Response response = await http.post(
       RoutesHttp.login,

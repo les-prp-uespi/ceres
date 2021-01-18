@@ -5,9 +5,10 @@ import 'package:uespi_reserva/provider/auth_provider.dart';
 import 'package:uespi_reserva/provider/controller_provider.dart';
 import 'package:uespi_reserva/util/name_routes.dart';
 import 'package:uespi_reserva/views/auth_home_view.dart';
+import 'package:uespi_reserva/views/auth_view.dart';
 import 'package:uespi_reserva/views/create_reservation_view.dart';
 import 'package:uespi_reserva/views/home_view.dart';
-import 'package:uespi_reserva/views/login_view.dart';
+import 'package:uespi_reserva/views/reservations_view.dart';
 import 'package:uespi_reserva/views/resource_view.dart';
 
 void main() {
@@ -30,14 +31,14 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        
         debugShowCheckedModeBanner: false,
         home: AuthHomeView(),
         routes: {
-          Routes.LOGIN_VIEW: (ctx) => LoginView(),
+          Routes.LOGIN_VIEW: (ctx) => AuthView(),
           Routes.HOME_VIEW: (ctx) => HomeView(),
           Routes.RESOURCES_VIEW: (ctx) => ResourceView(),
-          Routes.CREATE_RESERVATION_VIEW: (ctx) => CreateReservationView()
+          Routes.CREATE_RESERVATION_VIEW: (ctx) => CreateReservationView(),
+          Routes.RESERVATION_VIEW: (ctx) => ReservationView(),
         },
       ),
     );

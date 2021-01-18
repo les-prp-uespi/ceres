@@ -10,12 +10,6 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xff001F74),
         title: Text("CeRes"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.favorite),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Container(
         color: Color(0xff2E75BC),

@@ -34,7 +34,10 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.book),
               title: Text("Minhas reservas"),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.RESERVATION_VIEW);
+              },
             ),
             Divider(),
             ListTile(

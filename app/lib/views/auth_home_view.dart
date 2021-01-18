@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uespi_reserva/provider/auth_provider.dart';
+import 'package:uespi_reserva/views/auth_view.dart';
 import 'package:uespi_reserva/views/home_view.dart';
-import 'package:uespi_reserva/views/login_view.dart';
 
 class AuthHomeView extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class AuthHomeView extends StatelessWidget {
     return FutureBuilder<void>(
       future: auth.autoLogin(),
       builder: (context, snapshot) {
-        return auth.isAuth ? HomeView() : LoginView();
+        return auth.isAuth ? HomeView() : AuthView();
       },
     );
   }
