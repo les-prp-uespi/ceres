@@ -34,14 +34,13 @@ class _CreateReservationViewState extends State<CreateReservationView> {
   String _valueFinalHorario = "8:50";
   DateTime dateTime = DateTime.now();
   bool _isloading = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ControllerProvider>(context);
 
     final ResourceModel args = ModalRoute.of(context).settings.arguments;
-    final GlobalKey<ScaffoldState> _scaffoldKey =
-        new GlobalKey<ScaffoldState>();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -189,9 +188,10 @@ class _CreateReservationViewState extends State<CreateReservationView> {
                           await controller.createReservation(reservation);
                       print(result);
                       if (result == 200) {
-                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
                           content: Text('Reserva feita !!'),
                         ));
+                        Navigator.pop(context);
                       } else {
                         _scaffoldKey.currentState.showSnackBar(new SnackBar(
                           content: Text('Não foi possivel fazer a reserva !!'),

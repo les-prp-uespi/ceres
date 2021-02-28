@@ -56,7 +56,14 @@ class HomeView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: RaisedButton(
-                        child: Text("Salas"),
+                        color: Colors.white70,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.sensor_door_outlined, size: 100),
+                            Text("Salas")
+                          ],
+                        ),
                         onPressed: () {
                           Navigator.of(context).pushNamed(Routes.RESOURCES_VIEW,
                               arguments: RoutesHttp.filterResourcesImmobile);
@@ -66,7 +73,14 @@ class HomeView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: RaisedButton(
-                        child: Text("Materiais"),
+                        color: Colors.white70,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.settings_input_hdmi_outlined, size: 100,),
+                            Text("Materiais")
+                          ],
+                        ),
                         onPressed: () {
                           Navigator.of(context).pushNamed(Routes.RESOURCES_VIEW,
                               arguments: RoutesHttp.filterResourcesMobile);

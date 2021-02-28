@@ -21,7 +21,7 @@ class RoutesHttp {
   static final String filterResourcesImmobile =
       "https://api-ceres.herokuapp.com/api/materiais/?search=I";
   static final String createAcount =
-      "http://ceres-uespi.herokuapp.com/api/v1/register/";
+      "https://api-ceres.herokuapp.com/auth/registration/";
   static final String reservation =
       "https://api-ceres.herokuapp.com/api/reservas/";
   static final String updateReservation = "";

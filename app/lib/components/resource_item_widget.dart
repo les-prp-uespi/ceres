@@ -6,13 +6,17 @@ class ResourceItemWidget extends StatelessWidget {
   ResourceItemWidget({this.resourceModel});
   @override
   Widget build(BuildContext context) {
+    print(resourceModel.type);
     return GestureDetector(
       child: ClipRRect(
+        
         borderRadius: BorderRadius.circular(10.0),
         child: GridTile(
-          child: Image.asset(
-            "assets/DataShowNv.png",
-            fit: BoxFit.cover,
+          child: Container(
+            color: Colors.white70,
+            child: resourceModel.type == "I"
+                ? Icon(Icons.sensor_door_outlined, size: 100,)
+                : Icon(Icons.settings_input_hdmi_outlined, size: 100,),
           ),
           footer: GridTileBar(
             backgroundColor: Colors.black54,

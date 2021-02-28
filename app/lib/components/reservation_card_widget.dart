@@ -15,10 +15,15 @@ class ReservationCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(reservationModel.resourceModel.name),
-            Image.asset(
-              "assets/DataShowNv.png",
-              fit: BoxFit.fill,
-            ),
+            reservationModel.resourceModel.type == "I"
+                ? Icon(
+                    Icons.sensor_door_outlined,
+                    size: 90,
+                  )
+                : Icon(
+                    Icons.settings_input_hdmi_outlined,
+                    size: 90,
+                  ),
             Text(
                 "${reservationModel.data.substring(8, 10)}/${reservationModel.data.substring(5, 7)}/${reservationModel.data.substring(0, 4)}"),
             Row(

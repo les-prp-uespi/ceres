@@ -27,7 +27,7 @@ class _AuthFormState extends State<AuthForm> {
       setState(() {
         _isLoading = !_isLoading;
       });
-      return "Verifique suas Credenciais";
+      return "Não foi possivel logar, verifique suas credenciais!";
     }
     setState(() {
       _isLoading = !_isLoading;
@@ -109,8 +109,8 @@ class _AuthFormState extends State<AuthForm> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: Colors.blue)),
-                      onPressed: () {
-                        String msg = _login(context);
+                      onPressed: () async {
+                        String msg = await _login(context);
                         if (msg != null) {
                           Scaffold.of(context)
                               .showSnackBar(SnackBar(content: Text(msg)));

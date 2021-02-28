@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
 
+// ignore: must_be_immutable
 class ReservationTileWidget extends StatefulWidget {
   ReservationModel reservationModel;
   ReservationTileWidget({this.reservationModel});
