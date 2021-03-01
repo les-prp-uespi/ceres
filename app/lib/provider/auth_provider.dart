@@ -13,12 +13,23 @@ class Auth with ChangeNotifier {
     return _token != null;
   }
 
-  Future createAccount(String nome, String email, String password) async {
+  Future<int> createAccount(String nome, String email, String password) async {
     http.Response response = await http.post(RoutesHttp.createAcount, body: {
-      "email": email,
       "username": nome,
-      "password": password,
+      "email": email,
+      "password1": password,
+      "password2": password,
     });
+
+    if (response.statusCode == 201) {
+      _token = json.decode(response.body)["key"];
+      await LocalStore.saveString("token", _token);
+      notifyListeners();
+      return Future.value(200);
+    } else if (response.statusCode == 400) {
+      return Future.value(400);
+    }
+    return Future.value(401);
   }
 
   Future<int> login(String email, String password) async {
@@ -32,7 +43,6 @@ class Auth with ChangeNotifier {
     print(response.statusCode);
     if (response.statusCode == 200) {
       _token = json.decode(response.body)["key"];
-      print(_token);
       await LocalStore.saveString("token", _token);
       notifyListeners();
       return Future.value(200);

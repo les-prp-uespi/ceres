@@ -18,7 +18,6 @@ class ControllerProvider with ChangeNotifier {
     List reservationJson = json.decode(content);
     List<ReservationModel> reservation =
         reservationJson.map((e) => ReservationModel.fromJson(e)).toList();
-    print(reservation);
     return reservation;
   }
 
@@ -29,7 +28,6 @@ class ControllerProvider with ChangeNotifier {
     List resourcesJson = json.decode(content);
     List<ResourceModel> resources =
         resourcesJson.map((e) => ResourceModel.fromJson(e)).toList();
-    print(resources);
     return Future.value(resources);
   }
 

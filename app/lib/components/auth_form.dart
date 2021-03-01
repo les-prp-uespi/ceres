@@ -12,26 +12,68 @@ class _AuthFormState extends State<AuthForm> {
   bool _isLoading = false;
   bool _createAccount = false;
   final _formKey = GlobalKey<FormState>();
-  final Map<String, String> data = {"email": "", "password": ""};
+  final Map<String, String> data = {"email": "", "password": "", "name": ""};
 
   _login(BuildContext context) async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     setState(() {
-      _isLoading = !_isLoading;
+      _isLoading = true;
     });
     int resp = await Provider.of<Auth>(context, listen: false)
         .login(data['email'], data['password']);
     if (resp == 401) {
       setState(() {
-        _isLoading = !_isLoading;
+        _isLoading = false;
       });
       return "Não foi possivel logar, verifique suas credenciais!";
     }
     setState(() {
-      _isLoading = !_isLoading;
+      _isLoading = false;
     });
+    return null;
+  }
+
+  _create(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (!_formKey.currentState.validate()) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+    int resp = await Provider.of<Auth>(context, listen: false).createAccount(
+      data['name'],
+      data['email'],
+      data['password'],
+    );
+
+    print(resp);
+    if (resp == 401) {
+      setState(
+        () {
+          _isLoading = false;
+        },
+      );
+      return "Verifique seus dados!";
+    } else if (resp == 400) {
+      setState(
+        () {
+          _isLoading = false;
+        },
+      );
+      return "Senha muito comum!";
+    }
+
+    setState(
+      () {
+        _isLoading = false;
+      },
+    );
+
     return null;
   }
 
@@ -57,6 +99,9 @@ class _AuthFormState extends State<AuthForm> {
                     labelStyle: TextStyle(color: Colors.blueAccent),
                   ),
                   keyboardType: TextInputType.text,
+                  onSubmitted: (name) {
+                    data["name"] = name;
+                  },
                 ),
               TextField(
                 decoration: InputDecoration(
@@ -68,7 +113,7 @@ class _AuthFormState extends State<AuthForm> {
                   data["email"] = value;
                 },
               ),
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Senha',
                   labelStyle: TextStyle(
@@ -86,6 +131,12 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                 ),
+                validator: (str) {
+                  if (str.length < 8) {
+                    return "Senha tem que possuir 8 caracteres!";
+                  }
+                  return null;
+                },
                 obscureText: _visibilityPass,
                 onChanged: (value) {
                   data["password"] = value;
@@ -109,13 +160,21 @@ class _AuthFormState extends State<AuthForm> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: Colors.blue)),
-                      onPressed: () async {
-                        String msg = await _login(context);
-                        if (msg != null) {
-                          Scaffold.of(context)
-                              .showSnackBar(SnackBar(content: Text(msg)));
-                        }
-                      },
+                      onPressed: _createAccount
+                          ? () async {
+                              String msg = await _create(context);
+                              if (msg != null) {
+                                Scaffold.of(context)
+                                    .showSnackBar(SnackBar(content: Text(msg)));
+                              }
+                            }
+                          : () async {
+                              String msg = await _login(context);
+                              if (msg != null) {
+                                Scaffold.of(context)
+                                    .showSnackBar(SnackBar(content: Text(msg)));
+                              }
+                            },
                       child: Text(
                         _createAccount ? "CRIAR CONTA" : "ENTRAR",
                         style: TextStyle(fontSize: 15.0),
