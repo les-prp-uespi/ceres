@@ -59,7 +59,7 @@ class UpdateReservationView(generics.UpdateAPIView):
     
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
-        reservation =  self.get_queryset(pk)
+        reservation =  self.get_queryset(request.data.get('id'))
         serializer = self.get_serializer(reservation, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()
