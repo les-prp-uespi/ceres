@@ -60,7 +60,7 @@ class UpdateReservationView(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         #if(is_authorize_reservation(request.data)):
         reservation =  self.queryset.get(pk=request.pk)
-        serializer = self.get_serializer(reservation, data=request.data)
+        serializer = self.get_serializer(reservation, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status= status.HTTP_200_OK)
