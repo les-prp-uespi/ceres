@@ -54,12 +54,12 @@ class UpdateReservationView(generics.UpdateAPIView):
     serializer_class = ReservationSerializer
     permission_classes = [permissions.IsAuthenticated]
     
-    '''def get_queryset(self):
-        return self.queryset.get(pk=self.request.pk)'''
+    def get_queryset(self, pk):
+        return self.queryset.get(pk=pk)
     
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
-        reservation =  self.queryset.get(pk=request.pk)
+        reservation =  self.get_queryset()
         serializer = self.get_serializer(reservation, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()
