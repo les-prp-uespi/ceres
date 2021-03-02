@@ -10,6 +10,9 @@ class Routes {
 
   // ignore: non_constant_identifier_names
   static final String RESERVATION_VIEW = '/reservation';
+
+  // ignore: non_constant_identifier_names
+  static final String UPDATE_RESERVATION_VIEW = '/update_reservation';
 }
 
 class RoutesHttp {

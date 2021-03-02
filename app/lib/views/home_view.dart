@@ -77,7 +77,10 @@ class HomeView extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.settings_input_hdmi_outlined, size: 100,),
+                            Icon(
+                              Icons.settings_input_hdmi_outlined,
+                              size: 100,
+                            ),
                             Text("Materiais")
                           ],
                         ),

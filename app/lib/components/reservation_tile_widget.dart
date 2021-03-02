@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
+import 'package:uespi_reserva/util/name_routes.dart';
 
 // ignore: must_be_immutable
 class ReservationTileWidget extends StatefulWidget {
@@ -20,6 +21,10 @@ class _ReservationTileWidgetState extends State<ReservationTileWidget> {
       child: Column(
         children: [
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, Routes.UPDATE_RESERVATION_VIEW,
+                  arguments: widget.reservationModel);
+            },
             title: Text(
               widget.reservationModel.resourceModel.name,
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
