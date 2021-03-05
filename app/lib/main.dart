@@ -11,6 +11,8 @@ import 'package:uespi_reserva/views/home_view.dart';
 import 'package:uespi_reserva/views/reservations_view.dart';
 import 'package:uespi_reserva/views/resource_view.dart';
 
+import 'views/update_reservation_view.dart';
+
 void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
           Routes.RESOURCES_VIEW: (ctx) => ResourceView(),
           Routes.CREATE_RESERVATION_VIEW: (ctx) => CreateReservationView(),
           Routes.RESERVATION_VIEW: (ctx) => ReservationView(),
+          Routes.UPDATE_RESERVATION_VIEW: (ctx) => UpdateReservationView()
         },
       ),
     );

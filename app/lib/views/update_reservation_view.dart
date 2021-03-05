@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
 import 'package:uespi_reserva/provider/controller_provider.dart';
 
-
 class UpdateReservationView extends StatefulWidget {
   @override
   _UpdateReservationViewState createState() => _UpdateReservationViewState();
@@ -12,9 +11,9 @@ class UpdateReservationView extends StatefulWidget {
 
 class _UpdateReservationViewState extends State<UpdateReservationView> {
   List<String> _horarios = [
-    "8:00",
-    "8:50",
-    "9:40",
+    "08:00",
+    "08:50",
+    "09:40",
     "10:30",
     "11:20",
     "12:00",
@@ -31,12 +30,12 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
     "22:00"
   ];
 
-  String _valueInicioHorario = "8:00";
-  String _valueFinalHorario = "8:50";
+  String _valueInicioHorario;
+  String _valueFinalHorario;
   DateTime dateTime = DateTime.now();
   bool _isloading = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  TextEditingController editinInicio = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ControllerProvider>(context);
@@ -44,9 +43,9 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
     final ReservationModel args = ModalRoute.of(context).settings.arguments;
 
     setState(() {
-      _valueInicioHorario = args.tStart.substring(0, 5);
+      editinInicio.text = args.tStart.substring(0, 5);
       _valueFinalHorario = args.tFinal.substring(0, 5);
-      dateTime = DateFormat("'d/M/yyyy'").parse(args.data);
+      dateTime = DateFormat("yyyy-mm-dd").parse(args.data);
     });
 
     return Scaffold(
@@ -91,7 +90,7 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                           lastDate: DateTime(2028),
                           locale: Localizations.localeOf(context),
                         );
-                        setState(() {
+                        this.setState(() {
                           dateTime = data;
                         });
                       },
@@ -116,11 +115,12 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                     DropdownButton<String>(
-                        value: _valueInicioHorario,
+                      
+                        value: editinInicio.text.toString(),
                         items: _horarios
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
-                            value: value,
+                            value:  value,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 7, right: 7),
                               child: Text(
@@ -132,7 +132,8 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                           );
                         }).toList(),
                         onChanged: (value) {
-                          setState(() {
+                          this.setState(() {
+                            editinInicio.text = value;
                             _valueInicioHorario = value;
                           });
                         })
@@ -165,7 +166,7 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                           );
                         }).toList(),
                         onChanged: (value) {
-                          setState(() {
+                          this.setState(() {
                             _valueFinalHorario = value;
                           });
                         })

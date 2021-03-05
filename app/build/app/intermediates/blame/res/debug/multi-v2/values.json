@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gustavo/Documentos/ceres/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/gustavo/Downloads/ceres/app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/home/gustavo/Documentos/ceres/app/android/app/src/main/res/values/styles.xml",
+                    "source": "/home/gustavo/Downloads/ceres/app/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
