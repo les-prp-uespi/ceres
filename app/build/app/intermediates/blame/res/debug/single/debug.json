@@ -8,12 +8,12 @@
         "source": "/home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "/home/gustavo/Downloads/ceres/app/build/app/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
-        "source": "/home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/res/drawable/notification_icon_background.xml"
-    },
-    {
         "merged": "/home/gustavo/Downloads/ceres/app/build/app/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
         "source": "/home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/gustavo/Downloads/ceres/app/build/app/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
+        "source": "/home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/res/drawable/notification_icon_background.xml"
     },
     {
         "merged": "/home/gustavo/Downloads/ceres/app/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
