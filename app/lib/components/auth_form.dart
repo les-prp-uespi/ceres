@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:provider/provider.dart';
 import 'package:uespi_reserva/controller/app_controller.dart';
-import 'package:uespi_reserva/provider/auth_provider.dart';
+
 
 class AuthForm extends StatefulWidget {
   @override
