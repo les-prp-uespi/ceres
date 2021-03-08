@@ -1,53 +1,50 @@
-# CERES - a Central de Reservas da UESPI Campus Piripiri
+## CERES - a Central de Reservas da UESPI Campus Piripiri
 
 O sistema de reserva de material didático e de espaços do Campus Piripiri da UESPI, se chama *Cen*tral de *Res*ervas é desenvolvido pelo "Laboratório de Engenharia de Software", sob a liderança do Prof. Alcemir Santos.
  
-## Site
+## Documentação
 
-### Documentação
+#### Usuários
+ - Usuário comum;
+ - Administrado;
 
-#### Tela de Login
+Usuário comum podera listar suas reservas e reservar através do aplicativo mobile.
 
-Na tela de login se encontra o espaço do professor e do administrador.
+Administrador pode gerenciar todos os recursos e todas as reservas. Esse usuário possui um painel administrativo no Site.
 
-#### Login Professor 
+### Aplicativo 
+#### Tela de login
+<img src="app/flutter_01.png" width = 300>
 
-O professor pode criar sua conta e entrar para reservar locais e materiais por data, hora
-de inicio da reserva e hora de termino da reserva.
+#### Tela de criar conta
+<img src="app/flutter_02.png" width = 300>
 
-#### Login administrador 
+#### Tela inicial
+<img src="app/flutter_03.png" width = 300>
 
-No login do administrador não tem a opção de criar conta, para que qualquer outra pessoa que tenha acesso ao site crie 
-sua conta e se torne administrador.
-A criação de novas contas para administrador se encontra já dentro do site na parte do adminstrador. 
+#### Tela de listar reservas
 
-#### Adicionar locais e materiais 
+<img src="app/flutter_06.png" width = 300>
 
-Após ter logado como administrador, o mesmo pode adicionar e editar locais e materiais para reserva, e também pode adicionar
-novos administradores 
+#### Tela de listar recursos
+<img src="app/flutter_04.png" width = 300>
 
-#### Reservar materiais e locais 
+#### Tela reservar recurso
 
-Após ter logado como professor, o mesmo pode reservar materiais e locais,e na aba minhas reservas 
-o professor pode ter o controle dos materiais e locais já reservados, e também pode cancelar a reserva caso queira.
+<img src="app/flutter_05.png" width = 300>
+
+#### Animação do Aplicativo
+
+<img width="600"  src="app/anima.gif" />
+
+</video>
 
 ### Tecnologias
-
-O site é desenvolvido com _Python3_, _Flask_, _HTML5_ e _CSS3_.
+#### Api
+    - Django
+    - Django-restframework
+#### Mobile
+    - Flutter
 
 ### Desenvolvedor
-- Narciso Jr.;
-
-## App (Android & iOS)
-
-### Documentação
-
-Um aplicativo para consumir a API Rest do Site desenvolvido com Flutter.
-
-### Tecnologias
-
-O app sistemas são desenvolvidos com _Flutter_.
-
-### Desenvolvedores
-- Allexandre Meneses;
-- Gustavo Rodrigues;
+    - Gustavo Rodrigues Wanderley;
