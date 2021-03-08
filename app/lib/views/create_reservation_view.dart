@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:uespi_reserva/controller/app_controller.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
 import 'package:uespi_reserva/models/resource_model.dart';
-import 'package:uespi_reserva/provider/controller_provider.dart';
 
 class CreateReservationView extends StatefulWidget {
   @override
@@ -11,9 +11,9 @@ class CreateReservationView extends StatefulWidget {
 
 class _CreateReservationViewState extends State<CreateReservationView> {
   List<String> _horarios = [
-    "8:00",
-    "8:50",
-    "9:40",
+    "08:00",
+    "08:50",
+    "09:40",
     "10:30",
     "11:20",
     "12:00",
@@ -30,24 +30,28 @@ class _CreateReservationViewState extends State<CreateReservationView> {
     "22:00"
   ];
 
-  String _valueInicioHorario = "8:00";
-  String _valueFinalHorario = "8:50";
+  String _valueInicioHorario = "08:00";
+  String _valueFinalHorario = "08:50";
   DateTime dateTime = DateTime.now();
   bool _isloading = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<ControllerProvider>(context);
-
     final ResourceModel args = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xff2E75BC),
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Modular.to.pop();
+            }),
         backgroundColor: Color(0xff001F74),
         title: Text("Reservar"),
+        centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,13 +188,10 @@ class _CreateReservationViewState extends State<CreateReservationView> {
                         tFinal: _valueFinalHorario.toString(),
                         tStart: _valueInicioHorario.toString(),
                       );
-                      int result =
-                          await controller.createReservation(reservation);
-                      print(result);
+                      int result = await Modular.get<AppController>()
+                          .createReservation(reservation);
+
                       if (result == 200) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Reserva feita !!'),
-                        ));
                         Navigator.pop(context);
                       } else {
                         _scaffoldKey.currentState.showSnackBar(new SnackBar(

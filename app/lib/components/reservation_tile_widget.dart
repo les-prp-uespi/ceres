@@ -17,7 +17,9 @@ class _ReservationTileWidgetState extends State<ReservationTileWidget> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
-          color: Color(0xff2E75BC), borderRadius: BorderRadius.circular(10.0)),
+        color: Colors.white70,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Column(
         children: [
           ListTile(

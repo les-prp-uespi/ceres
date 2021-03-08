@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
+import 'package:uespi_reserva/controller/app_controller.dart';
 import 'package:uespi_reserva/provider/auth_provider.dart';
 
 class AuthForm extends StatefulWidget {
@@ -21,18 +23,11 @@ class _AuthFormState extends State<AuthForm> {
     setState(() {
       _isLoading = true;
     });
-    int resp = await Provider.of<Auth>(context, listen: false)
-        .login(data['email'], data['password']);
-    if (resp == 401) {
-      setState(() {
-        _isLoading = false;
-      });
-      return "Não foi possivel logar, verifique suas credenciais!";
-    }
+
+    await Modular.get<AppController>().login(data['email'], data['password']);
     setState(() {
       _isLoading = false;
     });
-    return null;
   }
 
   _create(BuildContext context) async {
@@ -45,13 +40,12 @@ class _AuthFormState extends State<AuthForm> {
       });
       return;
     }
-    int resp = await Provider.of<Auth>(context, listen: false).createAccount(
+    int resp = await Modular.get<AppController>().createAccount(
       data['name'],
       data['email'],
       data['password'],
     );
 
-    print(resp);
     if (resp == 401) {
       setState(
         () {

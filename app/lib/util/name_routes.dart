@@ -27,6 +27,6 @@ class RoutesHttp {
       "https://api-ceres.herokuapp.com/auth/registration/";
   static final String reservation =
       "https://api-ceres.herokuapp.com/api/reservas/";
-  static final String updateReservation = "";
+  static final String updateReservation = "https://api-ceres.herokuapp.com/api/reservas/";
   static final String getReservations = "";
 }

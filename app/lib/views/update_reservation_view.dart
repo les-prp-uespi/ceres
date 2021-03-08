@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+import 'package:uespi_reserva/controller/app_controller.dart';
 import 'package:uespi_reserva/models/reservation_model.dart';
-import 'package:uespi_reserva/provider/controller_provider.dart';
 
 class UpdateReservationView extends StatefulWidget {
   @override
@@ -30,30 +31,28 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
     "22:00"
   ];
 
-  String _valueInicioHorario;
-  String _valueFinalHorario;
+  String _valueInicioHorario = "08:00";
+  String _valueFinalHorario = "08:50";
   DateTime dateTime = DateTime.now();
   bool _isloading = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  TextEditingController editinInicio = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<ControllerProvider>(context);
-
-    final ReservationModel args = ModalRoute.of(context).settings.arguments;
-
-    setState(() {
-      editinInicio.text = args.tStart.substring(0, 5);
-      _valueFinalHorario = args.tFinal.substring(0, 5);
-      dateTime = DateFormat("yyyy-mm-dd").parse(args.data);
-    });
+    ReservationModel args = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xff2E75BC),
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Modular.to.pop();
+            }),
         backgroundColor: Color(0xff001F74),
-        title: Text("Atualizar Reservas"),
+        title: Text("Atualizar Reserva"),
+        centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,24 +77,6 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      onPressed: () async {
-                        final data = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2018),
-                          lastDate: DateTime(2028),
-                          locale: Localizations.localeOf(context),
-                        );
-                        this.setState(() {
-                          dateTime = data;
-                        });
-                      },
-                      child: Text("Selecionar Data"),
-                    ),
                     Text(
                       "${dateTime.day.toString()} / ${dateTime.month} / ${dateTime.year}",
                       style:
@@ -115,12 +96,11 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                     DropdownButton<String>(
-                      
-                        value: editinInicio.text.toString(),
+                        value: _valueInicioHorario,
                         items: _horarios
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
-                            value:  value,
+                            value: value,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 7, right: 7),
                               child: Text(
@@ -133,7 +113,6 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                         }).toList(),
                         onChanged: (value) {
                           this.setState(() {
-                            editinInicio.text = value;
                             _valueInicioHorario = value;
                           });
                         })
@@ -183,26 +162,24 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                       setState(() {
                         _isloading = !_isloading;
                       });
-                      final reservation = ReservationModel(
-                        data:
-                            "${dateTime.year}-${dateTime.month}-${dateTime.day}"
-                                .toString(),
-                        resource: args.id,
-                        status: false,
-                        tFinal: _valueFinalHorario.toString(),
-                        tStart: _valueInicioHorario.toString(),
-                      );
-                      int result =
-                          await controller.createReservation(reservation);
+
+                      setState(() {
+                        args.tStart = _valueInicioHorario.toString();
+                        args.tFinal = _valueFinalHorario.toString();
+                      });
+
+                      int result = await Modular.get<AppController>()
+                          .updateReservation(args);
                       print(result);
                       if (result == 200) {
                         _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Reserva feita !!'),
+                          content: Text('Reserva Atualizada !!'),
                         ));
                         Navigator.pop(context);
                       } else {
                         _scaffoldKey.currentState.showSnackBar(new SnackBar(
-                          content: Text('Não foi possivel fazer a reserva !!'),
+                          content:
+                              Text('Não foi possivel atualizar reserva !!'),
                         ));
                       }
                     } catch (err) {
@@ -215,7 +192,7 @@ class _UpdateReservationViewState extends State<UpdateReservationView> {
                   },
                   child: Padding(
                       padding: EdgeInsets.only(left: 10, right: 10),
-                      child: Text("RESERVAR")),
+                      child: Text("ATUALIZAR")),
                 ),
           SizedBox(
             height: 30,

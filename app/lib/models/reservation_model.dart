@@ -5,8 +5,8 @@ class ReservationModel {
   final String data;
   final int resource;
   final bool status;
-  final String tStart;
-  final String tFinal;
+  String tStart;
+  String tFinal;
   final ResourceModel resourceModel;
 
   ReservationModel(
@@ -36,5 +36,9 @@ class ReservationModel {
       data: parsedJson['day'] as String,
       resourceModel: ResourceModel.fromJson(parsedJson["material"]),
     );
+  }
+
+  toUpdateJson() {
+    return {"start": this.tStart, "end": this.tFinal};
   }
 }

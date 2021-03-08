@@ -43,9 +43,9 @@ MERGED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManife
 	android:name
 		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:3:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:4:1-75
+ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:4:5-79
 	android:name
-		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:4:18-72
+		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:4:22-76
 application
 ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:10:5-31:19
 MERGED from [androidx.core:core:1.1.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/AndroidManifest.xml:24:5-89
@@ -55,7 +55,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/gusta
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.1.0] /home/gustavo/.gradle/caches/transforms-2/files-2.1/6b399c2363bb098ebde1725d903cbda0/core-1.1.0/AndroidManifest.xml:24:18-86
 	android:label
-		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:12:9-38
+		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:12:9-30
 	android:icon
 		ADDED from /home/gustavo/Downloads/ceres/app/android/app/src/main/AndroidManifest.xml:13:9-43
 	android:name

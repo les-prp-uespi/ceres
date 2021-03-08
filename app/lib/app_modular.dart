@@ -8,6 +8,7 @@ import 'package:uespi_reserva/views/auth_home_view.dart';
 import 'package:uespi_reserva/views/create_reservation_view.dart';
 import 'package:uespi_reserva/views/home_view.dart';
 import 'package:uespi_reserva/views/resource_view.dart';
+import 'package:uespi_reserva/views/update_reservation_view.dart';
 
 class AppModule extends MainModule {
   @override
@@ -26,7 +27,8 @@ class AppModule extends MainModule {
         ModularRouter(Routes.HOME_VIEW, child: (_, __) => HomeView()),
         ModularRouter(Routes.CREATE_RESERVATION_VIEW,
             child: (_, __) => CreateReservationView()),
-        ModularRouter(Routes.RESOURCES_VIEW, child: (_, __)=> ResourceView())
+        ModularRouter(Routes.RESOURCES_VIEW, child: (_, __)=> ResourceView()),
+        ModularRouter(Routes.UPDATE_RESERVATION_VIEW, child:(_, __)=> UpdateReservationView()),
         //ModularRouter(RoutesName.PURCHASING, child: (_, __) => PurchasingView())
       ];
 }

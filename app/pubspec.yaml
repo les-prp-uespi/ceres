@@ -26,10 +26,10 @@ dependencies:
   cupertino_icons: ^0.1.2
   intl: ^0.16.1
   date_format: ^1.0.8
-  flutter_rounded_date_picker: 1.0.4
   table_calendar: ^2.2.3
-  rounded_loading_button: ^1.0.0
-
+  mobx: ^1.2.1+4
+  flutter_mobx: ^1.1.0+2
+  flutter_modular: ^2.0.1
   http: ^0.12.2
   provider: ^4.3.2+2
   shared_preferences: ^0.5.12+4
@@ -37,6 +37,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mobx_codegen: ^1.1.2
+  build_runner:
 
 
 # For information on the generic Dart part of this file, see the
