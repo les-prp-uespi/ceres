@@ -20,13 +20,7 @@ Usuário comum podera listar suas reservas e reservar através do aplicativo mob
 Administrador pode gerenciar todos os recursos e todas as reservas. Esse usuário possui um painel administrativo no Site.
 
 ### Screenshots do Aplicativo 
-<style>
-    table, tr,th {
-    border: 1px solid black;
-  }
-  th, td {
-  padding: 15px;
-}
+
 
 
 </style>
