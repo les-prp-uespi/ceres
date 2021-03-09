@@ -1,19 +1,21 @@
 <div style="align:center">
-<img src = "screenshots/icone.svg"><br>
-<strong> CeRes </strong>
+<img src = "screenshots/icone.svg">
 </div>
-
-
 
 ## CERES - a Central de Reservas da UESPI Campus Piripiri
 
-O sistema de reserva de material didático e de espaços do Campus Piripiri da UESPI, se chama *Cen*tral de *Res*ervas é desenvolvido pelo "Laboratório de Engenharia de Software", sob a liderança do Prof. Alcemir Santos.
+O aplicativo para reserva de material didático e de espaços do Campus Piripiri da UESPI, se chama *Cen*tral de *Res*ervas, desenvolvido pelo _Laboratório de Engenharia de Software_, sob a liderança do [Prof. Alcemir Rodrigues Santos](https://github.com/alcemirsantos).
+
+![Flutter Badge](https://img.shields.io/badge/flutter-1.22.26-blue)
+![Django](https://img.shields.io/badge/Django-2.2.12-green)
+![Django](https://img.shields.io/badge/DjangoRESTFramework-3.12.2-red)
+
  
 ## Documentação
 
 #### Usuários
  - Usuário comum;
- - Administrado;
+ - Administrador;
 
 Usuário comum podera listar suas reservas e reservar através do aplicativo mobile.
 
@@ -92,13 +94,9 @@ Administrador pode gerenciar todos os recursos e todas as reservas. Esse usuári
     <img width="300"  src="screenshots/anima.gif" />
 </center>
 
-### Tecnologias
-#### Api
-    - Django
-    - Django-restframework
-#### Mobile
-    - Flutter
 
-### Desenvolvedor
-    - Gustavo Rodrigues Wanderley;
-    - Allexandre Meneses de Melo;
+
+## Equipe de desenvolvimento
+   - Prof. Alcemir Rodrigues Santos ([GitHub](https://github.com/alcemirsantos)) - Gerente de Projeto
+   - Gustavo Rodrigues Wanderley ([GitHub](https://github.com/gustavo-wanderley)) - Desenvolviemento Full-stack 
+   - Allexandre Meneses de Melo ([GitHub](https://github.com/Allexandre-Meneses)) - Desenvolviemento Frontend
