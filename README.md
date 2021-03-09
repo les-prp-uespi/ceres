@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div style="align:center">
 <img src = "screenshots/icone.svg"><br>
 <strong> CeRes </strong>
 </div>
@@ -22,8 +22,6 @@ Administrador pode gerenciar todos os recursos e todas as reservas. Esse usuári
 ### Screenshots do Aplicativo 
 
 
-
-</style>
 <table>
     <thead>
         <tr>
